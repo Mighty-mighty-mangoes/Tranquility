@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Address} = require('../server/db/models')
+const {Address} = require('../server/db/models')
 const {
   getRandomHouseNumber,
   getRandomStreetName,
@@ -14,11 +14,6 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-
   for (let i = 0; i < 100; i++) {
     await Address.create({
       houseNumber: getRandomHouseNumber(),
@@ -29,7 +24,6 @@ async function seed() {
     })
   }
 
-  console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 
