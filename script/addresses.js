@@ -1,3 +1,5 @@
+const {Address} = require('../server/db/models')
+
 const names = [
   'Cherry Tree',
   'Lexington',
@@ -145,10 +147,18 @@ const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)]
 const getRandomState = () => states[Math.floor(Math.random() * states.length)]
 const getRandomZipCode = () => Math.floor(Math.random() * 90000) + 10000
 
-module.exports = {
-  getRandomHouseNumber,
-  getRandomStreetName,
-  getRandomCity,
-  getRandomState,
-  getRandomZipCode
+async function addressSeed() {
+  for (let i = 0; i < 100; i++) {
+    await Address.create({
+      houseNumber: getRandomHouseNumber(),
+      streetName: getRandomStreetName(),
+      city: getRandomCity(),
+      state: getRandomState(),
+      zipCode: getRandomZipCode()
+    })
+  }
+
+  console.log(`seeded successfully`)
 }
+
+module.exports = addressSeed
