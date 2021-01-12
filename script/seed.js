@@ -2,6 +2,7 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
+const seedCandles = require('./seeding/candles')
 
 async function seed() {
   await db.sync({force: true})
@@ -13,6 +14,8 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
+  await seedCandles()
+  console.log(`seeded candles`)
   console.log(`seeded successfully`)
 }
 
