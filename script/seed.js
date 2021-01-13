@@ -1,6 +1,9 @@
 'use strict'
 
 const db = require('../server/db')
+
+const addressSeed = require('./addresses')
+
 const userSeed = require('../script/seeding/user')
 const seedCandles = require('./seeding/candles')
 
@@ -13,7 +16,6 @@ async function seed() {
   //   User.create({email: 'cody@email.com', password: '123'}),
   //   User.create({email: 'murphy@email.com', password: '123'}),
   // ])
-
 
   // console.log(`seeded ${users.length} users`)
 
@@ -28,8 +30,12 @@ async function seed() {
 async function runSeed() {
   console.log('seeding...')
   try {
+
+    await addressSeed()
+
     await seed()
     await userSeed() //user seed data
+
   } catch (err) {
     console.error(err)
     process.exitCode = 1
@@ -46,6 +52,8 @@ async function runSeed() {
 if (module === require.main) {
   runSeed()
 }
-
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = userSeed
+// module.exports = seed
+
+module.exports = runSeed
+
