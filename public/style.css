@@ -1,4 +1,5 @@
 body {
+  background-color: #ebf4ff;
   font-family: sans-serif;
 }
 
@@ -18,4 +19,17 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+nav {
+  font-family: 'Fraunces', serif;
+  height: 50px;
+}
+
+.navbar-nav {
+  width: 100%;
+}
+
+.featureImage {
+  height: 500px;
 }
