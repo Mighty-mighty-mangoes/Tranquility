@@ -8,10 +8,10 @@ const Address = require('./address')
  *
  *    BlogPost.belongsTo(User)
  */
-//GO THROUGH WITH EVERYONE
-// User.hasMany(Candle)
-// Candle.belongsToMany(User)
-// User.hasOne(Address)
+
+User.hasOne(Address)
+Address.belongsTo(User)
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
