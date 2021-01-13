@@ -1,6 +1,7 @@
-const Candle = require('./candle')
-const User = require('./user')
-const Address = require('./address')
+const Candle = require('./candle');
+const CartItem = require('./cartItem');
+const User = require('./user');
+const Address = require('./address');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -9,8 +10,12 @@ const Address = require('./address')
  *    BlogPost.belongsTo(User)
  */
 
-User.hasOne(Address)
-Address.belongsTo(User)
+User.hasOne(Address);
+Address.belongsTo(User);
+CartItem.belongsTo(User);
+User.hasMany(CartItem);
+CartItem.belongsTo(Candle);
+Candle.hasMany(CartItem);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -22,5 +27,6 @@ Address.belongsTo(User)
 module.exports = {
   User,
   Address,
-  Candle
-}
+  Candle,
+  CartItem,
+};
