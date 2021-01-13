@@ -1,3 +1,4 @@
+const Candle = require('./candle')
 const User = require('./user')
 //need to import other models
 /**
@@ -17,7 +18,6 @@ const User = require('./user')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User,
-  // Candle,
-  // Address, //confirm names with others
+  Candle,
+  User
 }

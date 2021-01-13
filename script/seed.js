@@ -1,8 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-//const {User} = require('../server/db/models/user')
 const userSeed = require('../script/seeding/user')
+const seedCandles = require('./seeding/candles')
 
 async function seed() {
   await db.sync({force: true})
@@ -14,7 +14,11 @@ async function seed() {
   //   User.create({email: 'murphy@email.com', password: '123'}),
   // ])
 
+
   // console.log(`seeded ${users.length} users`)
+
+  await seedCandles()
+  console.log(`seeded candles`)
   console.log(`seeded successfully`)
 }
 
