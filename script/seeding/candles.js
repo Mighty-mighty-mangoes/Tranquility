@@ -37,7 +37,8 @@ const seedCandles = async () => {
       novelty: getRandomBoolean(0.2),
       description: faker.commerce.productDescription(),
       stock: getRandomInteger(MAX_STOCK),
-      theme: getRandomElement(THEMES)
+      theme: getRandomElement(THEMES),
+      imageUrl: faker.image.imageUrl()
     })
   }
   try {

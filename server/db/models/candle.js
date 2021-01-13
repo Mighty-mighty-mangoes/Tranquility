@@ -58,6 +58,10 @@ const Candle = db.define('candle', {
   },
   theme: {
     type: Sequelize.ENUM('candles for coders', 'flowers', 'spices', 'food')
+  },
+  imageUrl: {
+    type: Sequelize.TEXT,
+    defaultValue: '/default.jpg'
   }
 })
 
