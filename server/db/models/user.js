@@ -1,6 +1,5 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
-const db = require('../db')
 
 const User = db.define('user', {
   email: {
@@ -48,11 +47,11 @@ const User = db.define('user', {
   fullName: {
     type: Sequelize.VIRTUAL,
     get() {
-      return `${this.getDataValue(firstName)} ${this.getDataValue(lastName)}`
+      return `${this.firstName} ${this.lastName}`
     },
   },
   phone: {
-    type: Sequelize.STRING, //the form format can make sure this is entered in corrent format
+    type: Sequelize.STRING,
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
