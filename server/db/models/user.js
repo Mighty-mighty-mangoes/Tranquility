@@ -1,6 +1,6 @@
-const crypto = require('crypto')
-const Sequelize = require('sequelize')
-const db = require('../db')
+const crypto = require('crypto');
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const User = db.define('user', {
   email: {
@@ -16,7 +16,7 @@ const User = db.define('user', {
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
-      return () => this.getDataValue('password')
+      return () => this.getDataValue('password');
     },
   },
   salt: {
@@ -24,7 +24,7 @@ const User = db.define('user', {
     // Making `.salt` act like a function hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
-      return () => this.getDataValue('salt')
+      return () => this.getDataValue('salt');
     },
   },
   googleId: {
@@ -48,7 +48,7 @@ const User = db.define('user', {
   fullName: {
     type: Sequelize.VIRTUAL,
     get() {
-      return `${this.getDataValue(firstName)} ${this.getDataValue(lastName)}`
+      return `${this.firstName} ${this.lastName}`;
     },
   },
   phone: {
@@ -58,58 +58,58 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-})
+});
 
 /**
  * instanceMethods
  */
 User.prototype.correctPassword = function (candidatePwd) {
-  return User.encryptPassword(candidatePwd, this.salt()) === this.password()
-}
+  return User.encryptPassword(candidatePwd, this.salt()) === this.password();
+};
 
 /**
  * classMethods
  */
 User.generateSalt = function () {
-  return crypto.randomBytes(16).toString('base64')
-}
+  return crypto.randomBytes(16).toString('base64');
+};
 
 User.encryptPassword = function (plainText, salt) {
   return crypto
     .createHash('RSA-SHA256')
     .update(plainText)
     .update(salt)
-    .digest('hex')
-}
+    .digest('hex');
+};
 
 /**
  * hooks
  */
 const setSaltAndPassword = (user) => {
   if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt())
+    user.salt = User.generateSalt();
+    user.password = User.encryptPassword(user.password(), user.salt());
   }
-}
+};
 //format first name hook
 User.beforeCreate((user) => {
   let properFirst = `${user.firstName[0].toUpperCase()}${user.firstName
     .slice(1)
-    .toLowerCase()}`
-  user.firstName = properFirst
-})
+    .toLowerCase()}`;
+  user.firstName = properFirst;
+});
 //format last name hook
 User.beforeCreate((user) => {
   let properLast = `${user.lastName[0].toUpperCase()}${user.lastName
     .slice(1)
-    .toLowerCase()}`
-  user.lastName = properLast
-})
+    .toLowerCase()}`;
+  user.lastName = properLast;
+});
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
+User.beforeCreate(setSaltAndPassword);
+User.beforeUpdate(setSaltAndPassword);
 User.beforeBulkCreate((users) => {
-  users.forEach(setSaltAndPassword)
-})
+  users.forEach(setSaltAndPassword);
+});
 
-module.exports = User
+module.exports = User;
