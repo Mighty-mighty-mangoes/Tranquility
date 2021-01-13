@@ -7,35 +7,18 @@ const addressSeed = require('./addresses')
 const userSeed = require('../script/seeding/user')
 const seedCandles = require('./seeding/candles')
 
-async function seed() {
-  await db.sync({force: true})
-  console.log('db synced!')
-
-  //README- possibly no one else is having this problem because they aren't defining user
-  // const users = await Promise.all([
-  //   User.create({email: 'cody@email.com', password: '123'}),
-  //   User.create({email: 'murphy@email.com', password: '123'}),
-  // ])
-
-  // console.log(`seeded ${users.length} users`)
-
-  await seedCandles()
-  console.log(`seeded candles`)
-  console.log(`seeded successfully`)
-}
-
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
 // The `seed` function is concerned only with modifying the database.
 async function runSeed() {
   console.log('seeding...')
   try {
+    await db.sync({force: true})
+    console.log('db synced!')
 
+    await userSeed()
     await addressSeed()
-
-    await seed()
-    await userSeed() //user seed data
-
+    await seedCandles()
   } catch (err) {
     console.error(err)
     process.exitCode = 1
@@ -56,4 +39,3 @@ if (module === require.main) {
 // module.exports = seed
 
 module.exports = runSeed
-
