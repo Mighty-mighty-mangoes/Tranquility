@@ -1,19 +1,22 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const userSeed = require('../script/seeding/user')
 const seedCandles = require('./seeding/candles')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  //README- possibly no one else is having this problem because they aren't defining user
+  // const users = await Promise.all([
+  //   User.create({email: 'cody@email.com', password: '123'}),
+  //   User.create({email: 'murphy@email.com', password: '123'}),
+  // ])
 
-  console.log(`seeded ${users.length} users`)
+
+  // console.log(`seeded ${users.length} users`)
+
   await seedCandles()
   console.log(`seeded candles`)
   console.log(`seeded successfully`)
@@ -26,6 +29,7 @@ async function runSeed() {
   console.log('seeding...')
   try {
     await seed()
+    await userSeed() //user seed data
   } catch (err) {
     console.error(err)
     process.exitCode = 1
@@ -44,4 +48,4 @@ if (module === require.main) {
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = userSeed
