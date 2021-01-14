@@ -52,7 +52,7 @@ const User = db.define('user', {
     },
   },
   phone: {
-    type: Sequelize.STRING, //the form format can make sure this is entered in corrent format
+    type: Sequelize.STRING,
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
