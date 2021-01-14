@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Homepage, AllCandles, Signup, Login} from './components';
+import SingleCandle from './components/SingleCandle';
 import {me} from './store';
 
 export default class Routes extends Component {
@@ -14,7 +15,8 @@ export default class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/AllCandles" component={AllCandles} />
+        <Route exact path="/listAllCandles" component={AllCandles} />
+        <Route path="/viewSingleCandle/:candleId" component={SingleCandle} />
         <Route exact path="signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Homepage} />
@@ -33,17 +35,17 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
+// const mapDispatch = dispatch => {
+//   return {
+//     loadInitialData() {
+//       dispatch(me())
+//     }
+//   }
+// }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default withRouter(connect(null, null)(Routes));
 
 /**
  * PROP TYPES

@@ -11,24 +11,25 @@ export class AllCandles extends React.Component {
   }
 
   render() {
-    const {candles} = this.props;
-
+    const candles = this.props.candles || [];
+    console.log('all candles render', candles);
     return (
       <div className="list-view">
-        {candles.map((candle) => {
+        Here in all candles component
+        {/* {candles.map((candle) => {
           return (
             <div key={candle.id}>
               <div className="single-view">
                 <img src={candle.imageUrl} />
                 <div className="item-description">
-                  <Link to={`/candles/${candle.id}`}>
+                  <Link to={`/viewSingleCandle/${candle.id}`}>
                     <h2> {candle.name}</h2>
                   </Link>
                 </div>
               </div>
             </div>
           );
-        })}
+        })} */}
       </div>
     );
   }
@@ -39,7 +40,7 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => ({
-  loadRobots: () => dispatch(fetchCandles()),
+  loadCandles: () => dispatch(fetchCandles()),
 });
 
 export default connect(mapState, mapDispatch)(AllCandles);
