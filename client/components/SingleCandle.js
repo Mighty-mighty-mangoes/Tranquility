@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchCandle} from '../store/candles';
+import {fetchSingleCandle} from '../store/candles';
 
 export class SingleCandle extends React.Component {
   componentDidMount() {
@@ -32,6 +32,6 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  loadSingleCandle: (id) => dispatch(fetchCandle(id)),
+  loadSingleCandle: (id) => dispatch(fetchSingleCandle(id)),
 });
 export default connect(mapState, mapDispatch)(SingleCandle);
