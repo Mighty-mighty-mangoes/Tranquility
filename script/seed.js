@@ -6,17 +6,20 @@ const userSeed = require('../script/seeding/user');
 const seedCandles = require('./seeding/candles');
 const seedCartItems = require('./seeding/cartItems');
 
+async function seed() {
+  await userSeed();
+  await addressSeed();
+  await seedCandles();
+  await seedCartItems();
+}
+
 // Seeds the database
 async function runSeed() {
   console.log('seeding...');
   try {
     await db.sync({force: true});
     console.log('db synced!');
-
-    await userSeed();
-    await addressSeed();
-    await seedCandles();
-    await seedCartItems();
+    runSeed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
@@ -35,4 +38,4 @@ if (module === require.main) {
 }
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 
-module.exports = runSeed;
+module.exports = seed;

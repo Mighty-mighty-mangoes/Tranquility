@@ -1,8 +1,13 @@
-'use strict'
+'use strict';
 /* global describe it */
 
-const seed = require('./seed')
+const seed = require('./seed');
+const db = require('../server/db');
 
 describe('seed script', () => {
-  it('completes successfully', seed)
-})
+  beforeEach(() => {
+    return db.sync({force: true});
+  });
+
+  it('completes successfully', seed);
+});

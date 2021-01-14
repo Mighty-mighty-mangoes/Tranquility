@@ -19,7 +19,7 @@ router.post('/', async (req, res, next) => {
     let quantity = parseInt(req.body.quantity, 10);
     if (quantity > 0) {
       const [cartItem, created] = await CartItem.findOrCreate({
-        where: {userId: req.user.id, candleId: req.body.id},
+        where: {userId: req.user.id, candleId: req.body.candleId},
       });
       quantity += cartItem.quantity;
       await cartItem.update({quantity});
@@ -35,7 +35,7 @@ router.post('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     const cartItem = await CartItem.findOne({
-      where: {userId: req.user.id, candleId: req.body.id},
+      where: {userId: req.user.id, candleId: req.body.candleId},
     });
     const quantity = parseInt(req.body.quantity, 10);
     if (quantity === 0) {
@@ -53,7 +53,7 @@ router.put('/', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
   try {
     const cartItem = await CartItem.findOne({
-      where: {userId: req.user.id, candleId: req.body.id},
+      where: {userId: req.user.id, candleId: req.body.candleId},
     });
     await cartItem.destroy();
     res.sendStatus(200);
