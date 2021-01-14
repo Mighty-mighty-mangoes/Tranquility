@@ -1,6 +1,6 @@
 body {
   background-color: #ebf4ff;
-  font-family: sans-serif;
+  font-family: 'Fraunces', serif;
 }
 
 a {
@@ -22,7 +22,6 @@ form div {
 }
 
 nav {
-  font-family: 'Fraunces', serif;
   height: 50px;
 }
 
@@ -32,4 +31,8 @@ nav {
 
 .featureImage {
   height: 500px;
+}
+
+.container-md {
+  width: 25%;
 }
