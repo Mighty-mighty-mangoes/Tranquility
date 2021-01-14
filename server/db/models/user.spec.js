@@ -15,18 +15,20 @@ describe('User model', () => {
     email: 'cody@puppybook.com',
     password: 'bones',
   };
+
   it('returns true if the password is correct', async () => {
     const cody = await User.create(data);
     expect(cody.correctPassword('bones')).to.be.equal(true);
   });
-    it('returns false if the password is incorrect', async () => {
-      const cody = await User.create(data);
-      expect(cody.correctPassword('bonez')).to.be.equal(false);
-    });
-    it('users default to false for admin', async () => {
-      const cody = await User.create(data);
-      expect(cody.isAdmin).to.be.equal(false);
-    });
+  it('returns false if the password is incorrect', async () => {
+    const cody = await User.create(data);
+    expect(cody.correctPassword('bonez')).to.be.equal(false);
+  });
+  it('users default to false for admin', async () => {
+    const cody = await User.create(data);
+    expect(cody.isAdmin).to.be.equal(false);
+  });
+
   it('first and last name are capitalized', async () => {
     const cody = await User.create(data);
     expect(cody.firstName).to.be.equal('Cody');
