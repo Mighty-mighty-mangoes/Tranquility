@@ -2,15 +2,6 @@ const router = require('express').Router();
 const User = require('../db/models/user');
 module.exports = router;
 
-const getUserFields = (user) => {
-  return {
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    phone: user.phone,
-  };
-};
-
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({where: {email: req.body.email}});
@@ -21,9 +12,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email);
       res.status(401).send('Wrong username and/or password');
     } else {
-      req.login(user, (err) =>
-        err ? next(err) : res.json(getUserFields(user))
-      );
+      req.login(user, (err) => (err ? next(err) : res.json(user)));
     }
   } catch (err) {
     next(err);
@@ -32,10 +21,9 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    console.log(req.body);
     const {email, password, firstName, lastName} = req.body;
     const user = await User.create({email, password, firstName, lastName});
-    req.login(user, (err) => (err ? next(err) : res.json(getUserFields(user))));
+    req.login(user, (err) => (err ? next(err) : res.json(user)));
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists');
