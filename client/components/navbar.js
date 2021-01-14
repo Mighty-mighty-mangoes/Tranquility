@@ -14,14 +14,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     >
       <ul className="navbar-nav nav-justified">
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <Link to="/" className="nav-link">
             Home
-          </a>
+          </Link>
         </li>
         <li className="nav-item dropdown">
           <a
             className="nav-link dropdown-toggle"
-            href="#"
             id="navbarDropdownMenuLink"
             role="button"
             data-bs-toggle="dropdown"
@@ -34,46 +33,34 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             aria-labelledby="navbarDropdownMenuLink"
           >
             <li>
-              <a className="dropdown-item" href="#">
+              <Link to="/AllCandles" className="dropdown-item">
                 All Candles
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
-                Food
-              </a>
+              <a className="dropdown-item">Food</a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
-                Flowers
-              </a>
+              <a className="dropdown-item">Flowers</a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
-                Spices
-              </a>
+              <a className="dropdown-item">Spices</a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
-                Candles for Coders
-              </a>
+              <a className="dropdown-item">Candles for Coders</a>
             </li>
           </ul>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            About Us
-          </a>
+          <a className="nav-link">About Us</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            Contact
-          </a>
+          <a className="nav-link">Contact</a>
         </li>
         <li className="nav-item ml-auto">
-          <a className="nav-link" href="#">
+          <Link to="/login" className="nav-link">
             Log In or Sign Up
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

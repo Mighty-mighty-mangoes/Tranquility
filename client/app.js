@@ -1,14 +1,13 @@
 import React from 'react';
 
-import {Navbar, Homepage} from './components';
+import {Navbar} from './components';
 import Routes from './routes';
 
 const App = () => {
   return (
     <div>
       <Navbar />
-      <Homepage />
-      {/* <Routes /> */}
+      <Routes />
     </div>
   );
 };
