@@ -53,5 +53,9 @@ const Candle = db.define('candle', {
     defaultValue: '/default.jpg',
   },
 });
+Candle.beforeCreate((candle) => {
+  let lowerCase = `${candle.name.toLowerCase()}`;
+  candle.name = lowerCase;
+});
 
 module.exports = Candle;
