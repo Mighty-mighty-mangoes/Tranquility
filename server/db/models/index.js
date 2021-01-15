@@ -1,5 +1,7 @@
 const Candle = require('./candle');
-const CartItem = require('./cartItem');
+const OrderItem = require('./orderItem');
+const Ingredient = require('./ingredient');
+const Order = require('./order');
 const User = require('./user');
 const Address = require('./address');
 
@@ -12,10 +14,12 @@ const Address = require('./address');
 
 User.hasOne(Address);
 Address.belongsTo(User);
-CartItem.belongsTo(User);
-User.hasMany(CartItem);
-CartItem.belongsTo(Candle);
-Candle.hasMany(CartItem);
+User.hasMany(Order);
+Order.belongsTo(User);
+OrderItem.belongsTo(Order);
+Order.hasMany(OrderItem);
+Order.belongsToMany(Candle, {through: OrderItem});
+Candle.belongsToMany(Order, {through: OrderItem});
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -28,5 +32,7 @@ module.exports = {
   User,
   Address,
   Candle,
-  CartItem,
+  OrderItem,
+  Ingredient,
+  Order,
 };

@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Candle = db.define('candle', {
   name: {
@@ -7,8 +7,8 @@ const Candle = db.define('candle', {
     unique: true,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   color: {
     type: Sequelize.ENUM(
@@ -21,48 +21,37 @@ const Candle = db.define('candle', {
       'black',
       'white',
       'brown'
-    )
+    ),
   },
+  // Price of a candle in cents
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     validate: {
-      min: 0
-    }
-  },
-  ingredients: {
-    type: Sequelize.ARRAY(
-      Sequelize.ENUM(
-        'lavender',
-        'rose',
-        'jasmine',
-        'frankincense',
-        'cinnamon',
-        'gardenia'
-      )
-    )
+      min: 0,
+    },
   },
   size: {
-    type: Sequelize.ENUM('small', 'medium', 'large', 'extra-large')
+    type: Sequelize.ENUM('small', 'medium', 'large', 'extra-large'),
   },
   novelty: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
   },
   stock: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
-    validate: {min: 0}
+    validate: {min: 0},
   },
   theme: {
-    type: Sequelize.ENUM('candles for coders', 'flowers', 'spices', 'food')
+    type: Sequelize.ENUM('candles for coders', 'flowers', 'spices', 'food'),
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: '/default.jpg'
-  }
-})
+    defaultValue: '/default.jpg',
+  },
+});
 
-module.exports = Candle
+module.exports = Candle;

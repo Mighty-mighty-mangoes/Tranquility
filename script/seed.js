@@ -4,7 +4,7 @@ const db = require('../server/db');
 const addressSeed = require('./addresses');
 const userSeed = require('../script/seeding/user');
 const seedCandles = require('./seeding/candles');
-const seedCartItems = require('./seeding/cartItems');
+const seedOrders = require('./seeding/order');
 
 // Seeds the database
 async function runSeed() {
@@ -16,7 +16,7 @@ async function runSeed() {
     await userSeed();
     await addressSeed();
     await seedCandles();
-    await seedCartItems();
+    await seedOrders();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;

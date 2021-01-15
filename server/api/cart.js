@@ -1,30 +1,46 @@
 /* eslint-disable no-unused-vars */
 const router = require('express').Router();
-const {Candle, CartItem} = require('../db/models');
+const {Candle, Order, OrderItem} = require('../db/models');
 module.exports = router;
 
 // get cart contents for a logged-in user
 router.get('/', async (req, res, next) => {
-  const cartContents = await CartItem.findAll({
-    where: {userId: req.user.id},
-    include: Candle,
+  const [order, created] = await Order.findOrCreate({
+    where: {userId: req.user.id, purchased: false},
+    include: OrderItem,
   });
-  res.json(cartContents);
+  res.json(order);
 });
 
 // add an item to the cart for a logged-in user
-// Assume req.body has the form {id, quantity}
+// req.body should have the form {candleId, quantity}
+// Creates a new order if the user has no active orders
+// If the user already has an order item tied to req.body.candleId,
+// increments the quantity by req.body.quantity
 router.post('/', async (req, res, next) => {
   try {
     let quantity = parseInt(req.body.quantity, 10);
+    const candleId = parseInt(req.body.candleId, 10);
     if (quantity > 0) {
-      const [cartItem, created] = await CartItem.findOrCreate({
-        where: {userId: req.user.id, candleId: req.body.id},
+      const [order, created] = await Order.findOrCreate({
+        where: {userId: req.user.id, purchased: false},
+        include: OrderItem,
       });
-      quantity += cartItem.quantity;
-      await cartItem.update({quantity});
+      console.log(order);
+      const matchingItems = order.orderItems.filter(
+        (item) => item.candleId === candleId
+      );
+      console.log(matchingItems);
+      if (matchingItems.length) {
+        quantity += matchingItems[0].quantity;
+        await matchingItems[0].update({quantity});
+      } else {
+        const orderItem = await order.createOrderItem({
+          quantity,
+          candleId,
+        });
+      }
     }
-
     res.sendStatus(200);
   } catch (error) {
     next(error);
@@ -32,16 +48,24 @@ router.post('/', async (req, res, next) => {
 });
 
 // Edit the quantity of a cart item for a logged-in user
+// req.body should have the form {candleId, quantity}, where
+// the user has an existing order item tied to req.body.candleId;
+// sets the quantity of this order item to req.body.quantity
 router.put('/', async (req, res, next) => {
   try {
-    const cartItem = await CartItem.findOne({
-      where: {userId: req.user.id, candleId: req.body.id},
-    });
+    const candleId = parseInt(req.body.candleId, 10);
     const quantity = parseInt(req.body.quantity, 10);
+    const order = await Order.findOne({
+      where: {userId: req.user.id, purchased: false},
+      include: OrderItem,
+    });
+    const matchingItems = order.orderItems.filter(
+      (item) => item.candleId === candleId
+    );
     if (quantity === 0) {
-      await cartItem.destroy();
-    } else if (quantity !== cartItem.quantity) {
-      await cartItem.update({quantity});
+      await matchingItems[0].destroy();
+    } else if (quantity !== matchingItems[0].quantity) {
+      await matchingItems[0].update({quantity});
     }
     res.sendStatus(200);
   } catch (error) {
@@ -50,12 +74,20 @@ router.put('/', async (req, res, next) => {
 });
 
 // Delete an item from a logged-in user's cart
+// req.body should have the form {candleId}, where
+// the user has an order item tied to req.body.candleId;
+// removes this order item
 router.delete('/', async (req, res, next) => {
   try {
-    const cartItem = await CartItem.findOne({
-      where: {userId: req.user.id, candleId: req.body.id},
+    const candleId = parseInt(req.body.candleId, 10);
+    const order = await Order.findOne({
+      where: {userId: req.user.id, purchased: false},
+      include: OrderItem,
     });
-    await cartItem.destroy();
+    const matchingItems = order.orderItems.filter(
+      (item) => item.candleId === candleId
+    );
+    await matchingItems[0].destroy();
     res.sendStatus(200);
   } catch (error) {
     next(error);
