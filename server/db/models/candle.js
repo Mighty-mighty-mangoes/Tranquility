@@ -23,23 +23,12 @@ const Candle = db.define('candle', {
       'brown'
     ),
   },
+  // Price of a candle in cents
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     validate: {
       min: 0,
     },
-  },
-  ingredients: {
-    type: Sequelize.ARRAY(
-      Sequelize.ENUM(
-        'lavender',
-        'rose',
-        'jasmine',
-        'frankincense',
-        'cinnamon',
-        'gardenia'
-      )
-    ),
   },
   size: {
     type: Sequelize.ENUM('small', 'medium', 'large', 'extra-large'),
@@ -64,7 +53,6 @@ const Candle = db.define('candle', {
     defaultValue: '/default.jpg',
   },
 });
-
 Candle.beforeCreate((candle) => {
   let lowerCase = `${candle.name.toLowerCase()}`;
   candle.name = lowerCase;
