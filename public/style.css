@@ -36,3 +36,28 @@ nav {
 .container-md {
   width: 25%;
 }
+
+/* REFER TO Candles list View */
+.list-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  padding: 10px;
+}
+/* child of list-wrapper */
+.item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 5px;
+  flex-basis: auto;
+  max-width: 25%;
+  margin: auto;
+}
+.img-list-view {
+  width: 250px;
+}

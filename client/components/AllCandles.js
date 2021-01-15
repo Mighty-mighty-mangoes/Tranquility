@@ -3,37 +3,36 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchCandles} from '../store/candles';
 
-//  give route name to route list
-
 export class AllCandles extends React.Component {
   componentDidMount() {
     this.props.loadCandles();
   }
 
   render() {
-    const candles = this.props.candles || [];
-    console.log('all candles render', candles);
+    const {candles} = this.props.candles || [];
+    //console.log('all candles render', candles);
     return (
-      <div className="list-view">
-        Here in all candles component
-        {/* {candles.map((candle) => {
+      <div className="list-wrapper">
+        {candles.map((candle) => {
           return (
-            <div key={candle.id}>
-              <div className="single-view">
-                <img src={candle.imageUrl} />
-                <div className="item-description">
-                  <Link to={`/viewSingleCandle/${candle.id}`}>
-                    <h2> {candle.name}</h2>
-                  </Link>
-                </div>
+            <div key={candle.id} className="item-container">
+              <div>
+                <h4>
+                  <small>experience...</small> <strong>{candle.name}</strong>
+                </h4>
+                <Link to={`/viewSingleCandle/${candle.id}`}>
+                  <img src={candle.imageUrl} className="img-list-view" />
+                </Link>
+                <p>{candle.description}.</p>
               </div>
             </div>
           );
-        })} */}
+        })}
       </div>
     );
   }
 }
+
 const mapState = (state) => {
   return {
     candles: state.candles,

@@ -13,7 +13,7 @@ export const singleCandle = (candle) => ({
   candle,
 });
 
-//get all candles
+//get all candles-works
 export const fetchCandles = () => {
   return async (dispatch) => {
     try {
@@ -24,12 +24,11 @@ export const fetchCandles = () => {
     }
   };
 };
-//get single candle
+//get single candle-works
 export const fetchSingleCandle = (id) => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get(`/api/candles/${id}`);
-      console.log('fetch single candle thunk', data);
       dispatch(singleCandle(data));
     } catch (err) {
       console.log('Something is wrong in the single candles thunk: ', err);
@@ -41,10 +40,10 @@ let initialState = {
   candles: [],
 };
 export default function candleReducer(state = initialState, action) {
-  console.log('fetch candleReducer', action.type, 'state', state);
+  //console.log('fetch candleReducer', action.candles );
   switch (action.type) {
     case SET_CANDLES:
-      return action.candles;
+      return {...state, candles: action.candles};
 
     case SINGLE_CANDLE:
       return {...state, singleCandle: action.candle};
