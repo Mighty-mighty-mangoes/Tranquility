@@ -17,7 +17,7 @@ export default class Routes extends Component {
       <Switch>
         <Route exact path="/listAllCandles" component={AllCandles} />
         <Route path="/viewSingleCandle/:candleId" component={SingleCandle} />
-        <Route exact path="signup" component={Signup} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Homepage} />
       </Switch>

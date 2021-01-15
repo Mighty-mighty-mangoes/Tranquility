@@ -41,7 +41,6 @@ let initialState = {
   candles: [],
 };
 export default function candleReducer(state = initialState, action) {
-  console.log('fetch candleReducer', action.type, 'state', state);
   switch (action.type) {
     case SET_CANDLES:
       return action.candles;

@@ -1,4 +1,4 @@
-const {Address} = require('../server/db/models')
+const {Address} = require('../server/db/models');
 
 const names = [
   'Cherry Tree',
@@ -25,8 +25,8 @@ const names = [
   'Mead',
   'Sussex',
   'Oakland',
-  'Primrose'
-]
+  'Primrose',
+];
 const descriptors = [
   'Gardens',
   'Street',
@@ -39,8 +39,8 @@ const descriptors = [
   'Close',
   'Road',
   'Green',
-  'Avenue'
-]
+  'Avenue',
+];
 
 const cities = [
   'New York',
@@ -79,8 +79,8 @@ const cities = [
   'Columbus',
   'Charlotte',
   'Virginia Beach',
-  'Milwaukee'
-]
+  'Milwaukee',
+];
 
 const states = [
   'Alabama',
@@ -132,33 +132,34 @@ const states = [
   'Washington',
   'West Virginia',
   'Wisconsin',
-  'Wyoming'
-]
+  'Wyoming',
+];
 
-const getRandomHouseNumber = () => Math.floor(Math.random() * 1000)
-const getRandomStreetName = () => {
-  const streetName =
+const getRandomHouseNumber = () => Math.floor(Math.random() * 1000);
+const getRandomStreet = () => {
+  const street =
+    getRandomHouseNumber() +
+    ' ' +
     names[Math.floor(Math.random() * names.length)] +
     ' ' +
-    descriptors[Math.floor(Math.random() * descriptors.length)]
-  return streetName
-}
-const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)]
-const getRandomState = () => states[Math.floor(Math.random() * states.length)]
-const getRandomZipCode = () => Math.floor(Math.random() * 90000) + 10000
+    descriptors[Math.floor(Math.random() * descriptors.length)];
+  return street;
+};
+const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)];
+const getRandomState = () => states[Math.floor(Math.random() * states.length)];
+const getRandomZipCode = () => Math.floor(Math.random() * 90000) + 10000;
 
 async function addressSeed() {
   for (let i = 0; i < 100; i++) {
     await Address.create({
-      houseNumber: getRandomHouseNumber(),
-      streetName: getRandomStreetName(),
+      street: getRandomStreet(),
       city: getRandomCity(),
       state: getRandomState(),
-      zipCode: getRandomZipCode()
-    })
+      zipCode: getRandomZipCode(),
+    });
   }
 
-  console.log(`seeded successfully`)
+  console.log(`seeded successfully`);
 }
 
-module.exports = addressSeed
+module.exports = addressSeed;
