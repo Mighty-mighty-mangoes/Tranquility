@@ -33,12 +33,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             aria-labelledby="navbarDropdownMenuLink"
           >
             <li>
-              <Link to="/listAllCandles" className="dropdown-item">
+              <Link to="/allCandles" className="dropdown-item">
                 All Candles
               </Link>
             </li>
             <li>
-              <a className="dropdown-item">Food</a>
+              <Link to="/foodCandles" className="dropdown-item">
+                Food
+              </Link>
             </li>
             <li>
               <a className="dropdown-item">Flowers</a>

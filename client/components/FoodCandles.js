@@ -1,17 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchCandles} from '../store/candles';
+import {fetchFoodCandles} from '../store/candles';
 
-export class AllCandles extends React.Component {
+export class FoodCandles extends React.Component {
   componentDidMount() {
-    this.props.loadCandles();
+    this.props.loadFoodCandles();
   }
 
   render() {
-    let {candles} = this.props.candles || [];
+    const candles = this.props.candles.foodCandles || [];
 
-    console.log('all candles render', this.props);
+    console.log('food candles render', candles);
     return (
       <div className="list-wrapper">
         {candles.map((candle) => {
@@ -35,12 +35,13 @@ export class AllCandles extends React.Component {
 }
 
 const mapState = (state) => {
+  console.log('mapState in food/ state', state);
   return {
-    candles: state.candles,
+    candles: state.foodCandles,
   };
 };
 const mapDispatch = (dispatch) => ({
-  loadCandles: () => dispatch(fetchCandles()),
+  loadFoodCandles: () => dispatch(fetchFoodCandles()),
 });
 
-export default connect(mapState, mapDispatch)(AllCandles);
+export default connect(mapState, mapDispatch)(FoodCandles);

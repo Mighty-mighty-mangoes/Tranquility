@@ -54,9 +54,13 @@ nav {
   align-items: center;
   padding: 20px;
   border: 5px;
-  flex-basis: auto;
   max-width: 25%;
   margin: auto;
+  border: 0.5px;
+  flex-basis: auto;
+  align-content: space-evenly;
+  border-style: double;
+  border-color: rgb(200, 211, 223);
 }
 .img-list-view {
   width: 250px;

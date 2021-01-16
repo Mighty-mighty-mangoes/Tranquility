@@ -12,3 +12,4 @@ export {default as AllCandles} from './AllCandles';
 export {default as SingleCandle} from './SingleCandle';
 export {default as Login} from './Login';
 export {default as Signup} from './Signup';
+export {default as FoodCandles} from './FoodCandles';
