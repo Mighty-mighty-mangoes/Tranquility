@@ -43,13 +43,19 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               </Link>
             </li>
             <li>
-              <a className="dropdown-item">Flowers</a>
+              <Link to="/flowerCandles" className="dropdown-item">
+                Flowers
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item">Spices</a>
+              <Link to="/spiceCandles" className="dropdown-item">
+                Spices
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item">Candles for Coders</a>
+              <Link to="/coderCandles" className="dropdown-item">
+                Candles for Coders
+              </Link>
             </li>
           </ul>
         </li>

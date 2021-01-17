@@ -45,6 +45,8 @@ nav {
   justify-content: center;
   align-items: baseline;
   padding: 10px;
+  justify-content: space-between;
+  color: rgb(70, 79, 85);
 }
 /* child of list-wrapper */
 .item-container {
@@ -61,7 +63,33 @@ nav {
   align-content: space-evenly;
   border-style: double;
   border-color: rgb(200, 211, 223);
+  color: rgb(70, 79, 85);
 }
 .img-list-view {
   width: 250px;
+  border-radius: 1%;
+}
+h1 {
+  color: rgb(70, 79, 85);
+}
+/* single page view */
+.single-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 5px;
+  max-width: 75%;
+  margin: auto;
+  flex-basis: auto;
+  align-content: space-evenly;
+  color: rgb(70, 79, 85);
+}
+.img-single-view {
+  max-width: 50%;
+  border-radius: 1%;
+}
+.warning {
+  color: red;
 }

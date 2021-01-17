@@ -52,10 +52,30 @@ const Candle = db.define('candle', {
     type: Sequelize.TEXT,
     defaultValue: '/default.jpg',
   },
+  formattedPrice: {
+    //for display view
+    type: Sequelize.VIRTUAL,
+    get() {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format((this.price / 100).toFixed(2));
+    },
+  },
 });
+
 Candle.beforeCreate((candle) => {
   let lowerCase = `${candle.name.toLowerCase()}`;
   candle.name = lowerCase;
 });
+
+//to make ingredients list sentence ready-tested in repl
+Candle.properIngredients = function (candle) {
+  let array = candle.ingredients;
+  let last = array.pop().toString();
+  let ready = array.join(', ');
+
+  return ready.concat(`, and ${last}`);
+};
 
 module.exports = Candle;

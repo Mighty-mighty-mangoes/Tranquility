@@ -9,33 +9,40 @@ export class FoodCandles extends React.Component {
   }
 
   render() {
-    const candles = this.props.candles.foodCandles || [];
+    const {foodCandles} = this.props.candles || [];
+    let candles = foodCandles.filter((candle) => candle.stock > 0);
 
-    console.log('food candles render', candles);
     return (
-      <div className="list-wrapper">
-        {candles.map((candle) => {
-          return (
-            <div key={candle.id} className="item-container">
-              <div>
-                <h4>
-                  <small>experience...</small> <strong>{candle.name}</strong>
-                </h4>
-                <Link to={`/viewSingleCandle/${candle.id}`}>
-                  <img src={candle.imageUrl} className="img-list-view" />
-                </Link>
-                <p>{candle.theme}.</p>
+      <div>
+        <h1>
+          <center>...candles for food lovers...</center>
+        </h1>
+        <div className="list-wrapper">
+          {candles.map((candle) => {
+            return (
+              <div key={candle.id} className="item-container">
+                <div>
+                  <h4>
+                    <small>experience...</small> <br></br>
+                    <strong>
+                      <center>{candle.name}</center>
+                    </strong>
+                  </h4>
+                  <Link to={`/viewSingleCandle/${candle.id}`}>
+                    <img src={candle.imageUrl} className="img-list-view" />
+                  </Link>
+                  <p>{candle.theme}.</p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     );
   }
 }
 
 const mapState = (state) => {
-  console.log('mapState in food/ state', state);
   return {
     candles: state.foodCandles,
   };

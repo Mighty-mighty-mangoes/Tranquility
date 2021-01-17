@@ -1,20 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchCandles} from '../store/candles';
+import {fetchCoderCandles} from '../store/candles';
 
-export class AllCandles extends React.Component {
+export class CoderCandles extends React.Component {
   componentDidMount() {
-    this.props.loadCandles();
+    this.props.loadCoderCandles();
   }
 
   render() {
-    let {candles} = this.props.candles || [];
-    candles = candles.filter((candle) => candle.stock > 0);
+    const {coderCandles} = this.props.candles || [];
+    let candles = coderCandles.filter((candle) => candle.stock > 0);
     return (
       <div>
         <h1>
-          <center>...all our candles...</center>
+          <center>...candles for coders...</center>
         </h1>
         <div className="list-wrapper">
           {candles.map((candle) => {
@@ -23,7 +23,7 @@ export class AllCandles extends React.Component {
                 <div>
                   <h4>
                     <small>experience...</small>
-                    <br />
+                    <br />{' '}
                     <strong>
                       <center>{candle.name}</center>
                     </strong>
@@ -31,15 +31,7 @@ export class AllCandles extends React.Component {
                   <Link to={`/viewSingleCandle/${candle.id}`}>
                     <img src={candle.imageUrl} className="img-list-view" />
                   </Link>
-                  <p>from our {candle.theme} collection...</p>
-                  {candle.stock < 10 && (
-                    <h6 className="warning">
-                      <center>
-                        Hurry! Supplies are limited! Only {candle.stock}{' '}
-                        remaining...
-                      </center>
-                    </h6>
-                  )}
+                  <p>{candle.theme}.</p>
                 </div>
               </div>
             );
@@ -52,11 +44,11 @@ export class AllCandles extends React.Component {
 
 const mapState = (state) => {
   return {
-    candles: state.candles,
+    candles: state.coderCandles,
   };
 };
 const mapDispatch = (dispatch) => ({
-  loadCandles: () => dispatch(fetchCandles()),
+  loadCoderCandles: () => dispatch(fetchCoderCandles()),
 });
 
-export default connect(mapState, mapDispatch)(AllCandles);
+export default connect(mapState, mapDispatch)(CoderCandles);
