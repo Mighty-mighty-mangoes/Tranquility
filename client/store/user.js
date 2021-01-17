@@ -31,12 +31,20 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const auth = (email, password, method) => async (dispatch) => {
+export const auth = (info, method) => async (dispatch) => {
   let res;
-  try {
-    res = await axios.post(`/auth/${method}`, {email, password});
-  } catch (authError) {
-    return dispatch(getUser({error: authError}));
+  if (method === 'signup') {
+    try {
+      res = await axios.post(`/auth/${method}`, {info});
+    } catch (authError) {
+      return dispatch(getUser({error: authError}));
+    }
+  } else {
+    try {
+      res = await axios.post(`/auth/${method}`, {info});
+    } catch (authError) {
+      return dispatch(getUser({error: authError}));
+    }
   }
 
   try {

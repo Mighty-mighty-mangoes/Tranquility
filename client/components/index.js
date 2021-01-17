@@ -6,8 +6,6 @@
 
 export {default as Navbar} from './Navbar';
 export {default as Homepage} from './Homepage';
-// export { default as UserHome } from './user-home';
-//export {Login, Signup} from './auth-form';
 export {default as AllCandles} from './AllCandles';
 export {default as SingleCandle} from './SingleCandle';
 export {default as Login} from './Login';

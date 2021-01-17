@@ -38,16 +38,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               </Link>
             </li>
             <li>
-              <a className="dropdown-item">Food</a>
+              <a className="nav-link dropdown-item">Food</a>
             </li>
             <li>
-              <a className="dropdown-item">Flowers</a>
+              <a className="nav-link dropdown-item">Flowers</a>
             </li>
             <li>
-              <a className="dropdown-item">Spices</a>
+              <a className="nav-link dropdown-item">Spices</a>
             </li>
             <li>
-              <a className="dropdown-item">Candles for Coders</a>
+              <a className="nav-link dropdown-item">Candles for Coders</a>
             </li>
           </ul>
         </li>
@@ -59,7 +59,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </li>
         <li className="nav-item ml-auto">
           <Link to="/login" className="nav-link">
-            Log In or Sign Up
+            Log In
+          </Link>
+        </li>
+        <li className="nav-item ml-auto">
+          <Link to="/signup" className="nav-link">
+            Sign Up
           </Link>
         </li>
       </ul>

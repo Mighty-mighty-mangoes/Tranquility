@@ -1,4 +1,4 @@
-const {Address} = require('../server/db/models');
+const {Address} = require('../../server/db/models');
 
 const names = [
   'Cherry Tree',

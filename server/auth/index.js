@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const User = require('../db/models/user');
+const Address = require('../db/models/address');
 module.exports = router;
 
 router.post('/login', async (req, res, next) => {
   try {
-    const {email, password} = req.body;
+    const {email, password} = req.body.info;
     const user = await User.findOne({where: {email: email}});
     if (!user) {
       console.log('No such user found:', email);
@@ -22,8 +23,35 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const {email, password, firstName, lastName} = req.body;
-    const user = await User.create({email, password, firstName, lastName});
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      street,
+      city,
+      state,
+      zipCode,
+    } = req.body.info;
+    const user = await User.create(
+      {
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        address: {
+          street: street,
+          city: city,
+          state: state,
+          zipCode: zipCode,
+        },
+      },
+      {
+        include: [Address],
+      }
+    );
     req.login(user, (err) => (err ? next(err) : res.json(user)));
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
