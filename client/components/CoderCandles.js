@@ -12,14 +12,14 @@ export class CoderCandles extends React.Component {
     const {coderCandles} = this.props.candles || [];
     let candles = coderCandles.filter((candle) => candle.stock > 0);
     return (
-      <div>
+      <div className="container">
         <h1>
           <center>...candles for coders...</center>
         </h1>
-        <div className="list-wrapper">
+        <div className="row">
           {candles.map((candle) => {
             return (
-              <div key={candle.id} className="item-container">
+              <div key={candle.id} className="col-sm-3">
                 <div>
                   <h4>
                     <small>experience...</small>

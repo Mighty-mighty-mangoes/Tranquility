@@ -29,10 +29,7 @@ export class SingleCandle extends React.Component {
           </center>
         </h2>
         {candle.stock < 10 && (
-          <h3 className="warning">
-            Hurry! Supplies are limited! <br />
-            Only {candle.stock} remaining...
-          </h3>
+          <h3 className="warning">Hurry! Only {candle.stock} remaining...</h3>
         )}
         <h3>
           <center>Price: {candle.formattedPrice}</center>

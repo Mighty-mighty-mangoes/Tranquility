@@ -12,15 +12,15 @@ export class AllCandles extends React.Component {
     let {candles} = this.props.candles || [];
     candles = candles.filter((candle) => candle.stock > 0);
     return (
-      <div>
+      <div className="container">
         <h1>
           <center>...all our candles...</center>
         </h1>
 
-        <div className="list-wrapper">
+        <div className="row">
           {candles.map((candle) => {
             return (
-              <div key={candle.id} className="item-container">
+              <div key={candle.id} className="col-sm-3">
                 <div>
                   <h4>
                     <small>experience...</small>
@@ -31,18 +31,17 @@ export class AllCandles extends React.Component {
                   </h4>
                   <img src={candle.imageUrl} className="img-list-view" />
                   <center>Price: {candle.formattedPrice}</center>
-                  {candle.stock < 10 && (
-                    <h6 className="warning">
-                      <center> Hurry! Only {candle.stock} remaining...</center>
-                    </h6>
-                  )}
                   <center>
                     <p>
                       This {candle.size} sized candle is from our {candle.theme}{' '}
                       collection...
                     </p>
-                  </center>{' '}
-                  <br />
+                  </center>
+                  {candle.stock < 10 && (
+                    <h6 className="warning">
+                      <center> Hurry! Only {candle.stock} remaining...</center>
+                    </h6>
+                  )}
                   <Link
                     to={`/viewSingleCandle/${candle.id}`}
                     className="btn btn-secondary btn-sm"

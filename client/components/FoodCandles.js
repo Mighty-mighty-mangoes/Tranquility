@@ -13,14 +13,14 @@ export class FoodCandles extends React.Component {
     let candles = foodCandles.filter((candle) => candle.stock > 0);
 
     return (
-      <div>
+      <div className="container">
         <h1>
           <center>...candles for food lovers...</center>
         </h1>
-        <div className="list-wrapper">
+        <div className="row">
           {candles.map((candle) => {
             return (
-              <div key={candle.id} className="item-container">
+              <div key={candle.id} className="col-sm-3">
                 <div>
                   <h4>
                     <small>experience...</small> <br></br>
