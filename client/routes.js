@@ -11,7 +11,9 @@ import {
   CoderCandles,
   Signup,
   Login,
+  Cart
 } from './components';
+
 import SingleCandle from './components/SingleCandle';
 import {me} from './store';
 
@@ -33,6 +35,7 @@ export default class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Homepage} />
+        <Route exact path="/cart" component={Cart} />
       </Switch>
     );
   }
