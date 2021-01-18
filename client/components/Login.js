@@ -23,6 +23,7 @@ class Login extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     await this.props.auth(this.state, 'login');
+    localStorage.setItem('user', this.props.user);
     this.setState({
       email: '',
       password: '',
@@ -79,10 +80,16 @@ class Login extends React.Component {
   }
 }
 
+const mapState = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
 const mapDispatch = (dispatch) => {
   return {
     auth: (info, method) => dispatch(auth(info, method)),
   };
 };
 
-export default connect(null, mapDispatch)(Login);
+export default connect(mapState, mapDispatch)(Login);

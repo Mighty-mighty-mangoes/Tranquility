@@ -33,6 +33,7 @@ li a {
 h1 {
   text-align: center;
   padding: 10px;
+  margin-top: 20px;
 }
 
 .navbar-nav {
@@ -40,13 +41,8 @@ h1 {
 }
 
 .featureImage {
-  height: 90%;
-}
-
-.imageBackground {
-  background-color: #c0d7bb;
   height: 400px;
-  width: 40%;
+  box-shadow: 10px 10px 8px;
 }
 
 .container-login {

@@ -59,7 +59,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </li>
         {isLoggedIn ? (
           <li className="nav-item">
-            <a className="nav-link">Logout</a>
+            <a className="nav-link" onClick={handleClick}>
+              Logout
+            </a>
           </li>
         ) : (
           <li className="row nav-item">
@@ -85,15 +87,15 @@ const mapState = (state) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     handleClick() {
-//       dispatch(logout());
-//     },
-//   };
-// };
+const mapDispatch = (dispatch) => {
+  return {
+    handleClick() {
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState)(Navbar);
+export default connect(mapState, mapDispatch)(Navbar);
 
 /**
  * PROP TYPES
