@@ -9,6 +9,10 @@ const reducer = combineReducers({
   user: user,
   candles: candleReducer,
   singleCandle: candleReducer,
+  foodCandles: candleReducer,
+  spiceCandles: candleReducer,
+  flowerCandles: candleReducer,
+  coderCandles: candleReducer,
 });
 
 const middleware = composeWithDevTools(

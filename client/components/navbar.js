@@ -39,21 +39,29 @@ class Navbar extends React.Component {
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-                  <Link to="/listAllCandles" className="dropdown-item">
-                    All Candles
-                  </Link>
-                </li>
-                <li>
-                  <a className="nav-link dropdown-item">Food</a>
-                </li>
-                <li>
-                  <a className="nav-link dropdown-item">Flowers</a>
-                </li>
-                <li>
-                  <a className="nav-link dropdown-item">Spices</a>
-                </li>
-                <li>
-                  <a className="nav-link dropdown-item">Candles for Coders</a>
+              <Link to="/allCandles" className="dropdown-item">
+                All Candles
+              </Link>
+            </li>
+            <li>
+              <Link to="/foodCandles" className="dropdown-item">
+                Food
+              </Link>
+            </li>
+            <li>
+              <Link to="/flowerCandles" className="dropdown-item">
+                Flowers
+              </Link>
+            </li>
+            <li>
+              <Link to="/spiceCandles" className="dropdown-item">
+                Spices
+              </Link>
+            </li>
+            <li>
+              <Link to="/coderCandles" className="dropdown-item">
+                Candles for Coders
+              </Link>
                 </li>
               </ul>
             </li>
