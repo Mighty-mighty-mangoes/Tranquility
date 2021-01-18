@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Homepage, AllCandles, Signup, Login} from './components';
+import {Homepage, AllCandles, Signup, Login, Cart} from './components';
 import SingleCandle from './components/SingleCandle';
 import {me} from './store';
 
@@ -20,6 +20,7 @@ export default class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Homepage} />
+        <Route exact path="/cart" component={Cart} />
       </Switch>
     );
   }
