@@ -2,7 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Homepage, AllCandles, Signup, Login, Cart} from './components';
+import {
+  Homepage,
+  AllCandles,
+  FoodCandles,
+  SpiceCandles,
+  FlowerCandles,
+  CoderCandles,
+  Signup,
+  Login,
+  Cart
+} from './components';
+
 import SingleCandle from './components/SingleCandle';
 import {me} from './store';
 
@@ -15,7 +26,11 @@ export default class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/listAllCandles" component={AllCandles} />
+        <Route exact path="/allCandles" component={AllCandles} />
+        <Route exact path="/foodCandles" component={FoodCandles} />
+        <Route exact path="/spiceCandles" component={SpiceCandles} />
+        <Route exact path="/flowerCandles" component={FlowerCandles} />
+        <Route exact path="/coderCandles" component={CoderCandles} />
         <Route path="/viewSingleCandle/:candleId" component={SingleCandle} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />

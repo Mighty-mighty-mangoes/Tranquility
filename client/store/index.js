@@ -6,11 +6,17 @@ import user from './user';
 import candleReducer from './candles';
 import cart from './cart';
 
+
 const reducer = combineReducers({
+  cart: cart,
   user: user,
   candles: candleReducer,
   singleCandle: candleReducer,
-  cart: cart,
+  foodCandles: candleReducer,
+  spiceCandles: candleReducer,
+  flowerCandles: candleReducer,
+  coderCandles: candleReducer,
+
 });
 
 const middleware = composeWithDevTools(

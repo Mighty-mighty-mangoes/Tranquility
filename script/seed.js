@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('../server/db');
-const addressSeed = require('./addresses');
+const addressSeed = require('./seeding/addresses');
 const userSeed = require('../script/seeding/user');
 const seedCandles = require('./seeding/candles');
 const seedOrders = require('./seeding/order');

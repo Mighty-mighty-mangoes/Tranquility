@@ -6,10 +6,15 @@
 
 export {default as Navbar} from './Navbar';
 export {default as Homepage} from './Homepage';
-// export { default as UserHome } from './user-home';
-//export {Login, Signup} from './auth-form';
-export {default as AllCandles} from './AllCandles';
-export {default as SingleCandle} from './SingleCandle';
 export {default as Login} from './Login';
 export {default as Signup} from './Signup';
 export {default as Cart} from './Cart';
+
+//candle components
+export {default as AllCandles} from './AllCandles';
+export {default as SingleCandle} from './SingleCandle';
+export {default as FoodCandles} from './FoodCandles';
+export {default as SpiceCandles} from './SpiceCandles';
+export {default as FlowerCandles} from './FlowerCandles';
+export {default as CoderCandles} from './CoderCandles';
+

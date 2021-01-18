@@ -3,20 +3,22 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {auth} from '../store/user';
 
-export default class Signup extends React.Component {
+const defaultState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  phone: '',
+  street: '',
+  city: '',
+  state: '',
+  zipCode: '',
+};
+
+class Signup extends React.Component {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      street: '',
-      city: '',
-      state: '',
-      zipcode: '',
-    };
+    this.state = defaultState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -29,11 +31,8 @@ export default class Signup extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.props.auth(this.state.email, this.state.password, 'login');
-    this.setState({
-      email: '',
-      password: '',
-    });
+    await this.props.auth(this.state, 'signup');
+    this.setState(defaultState);
   }
 
   render() {
@@ -41,130 +40,155 @@ export default class Signup extends React.Component {
       <div className="mx-auto mt-3">
         <h2 className="text-center">Create an Account:</h2>
         <form
-          className="container needs-validation"
+          className="container-signup needs-validation"
           onSubmit={this.handleSubmit}
           noValidate
         >
-          <div className="col-md-4">
-            <label htmlFor="firstName" className="form-label">
-              First name
-            </label>
-            <input
-              name="firstName"
-              type="text"
-              className="form-control"
-              id="firstName"
-              value={this.state.firstName}
-              required
-            />
-          </div>
-          <div className="col-md-4">
-            <label htmlFor="lastName" className="form-label">
-              Last name
-            </label>
-            <input
-              name="lastName"
-              type="text"
-              className="form-control"
-              id="lastName"
-              value={this.state.lastName}
-              required
-            />
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              name="email"
-              type="email"
-              className="form-control"
-              id="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-            />
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              id="password"
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="phoneNumber" className="form-label">
-              Phone Number
-            </label>
-            <input
-              name="phoneNumber"
-              type="phoneNumber"
-              className="form-control"
-              id="phoneNumber"
-              onChange={this.handleChange}
-              value={this.state.phoneNumber}
-            />
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="street" className="form-label">
-              Street
-            </label>
-            <input
-              name="street"
-              type="street"
-              className="form-control"
-              id="street"
-              onChange={this.handleChange}
-              value={this.state.street}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="validationCustom03" className="form-label">
-              City
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="validationCustom03"
-              required
-            />
-            <div className="invalid-feedback">Please provide a valid city.</div>
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              name="email"
-              type="email"
-              className="form-control"
-              id="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-            />
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              name="email"
-              type="email"
-              className="form-control"
-              id="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-            />
-          </div>
-          <input className="btn btn-dark" type="submit" value="Submit"></input>
           <div className="row">
-            <Link to="/signup">Sign Up Here</Link>
+            <div className="col">
+              <label htmlFor="firstName" className="form-label">
+                First name
+              </label>
+              <input
+                name="firstName"
+                type="text"
+                className="form-control"
+                id="firstName"
+                onChange={this.handleChange}
+                value={this.state.firstName}
+                required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="lastName" className="form-label">
+                Last name
+              </label>
+              <input
+                name="lastName"
+                type="text"
+                className="form-control"
+                id="lastName"
+                onChange={this.handleChange}
+                value={this.state.lastName}
+                required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="phone" className="form-label">
+                Phone Number
+              </label>
+              <input
+                name="phone"
+                type="phone"
+                className="form-control"
+                id="phone"
+                onChange={this.handleChange}
+                value={this.state.phoneNumber}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                name="email"
+                type="email"
+                className="form-control"
+                id="email"
+                onChange={this.handleChange}
+                value={this.state.email}
+                required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                id="password"
+                onChange={this.handleChange}
+                value={this.state.password}
+                required
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="street" className="form-label">
+                Street
+              </label>
+              <input
+                name="street"
+                type="street"
+                className="form-control"
+                id="street"
+                onChange={this.handleChange}
+                value={this.state.street}
+                required
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="city" className="form-label">
+                City
+              </label>
+              <input
+                name="city"
+                type="text"
+                className="form-control"
+                id="city"
+                onChange={this.handleChange}
+                value={this.state.city}
+                required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="state" className="form-label">
+                State
+              </label>
+              <input
+                name="state"
+                type="state"
+                className="form-control"
+                id="state"
+                onChange={this.handleChange}
+                value={this.state.state}
+                required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="zipCode" className="form-label">
+                Zip Code
+              </label>
+              <input
+                name="zipCode"
+                type="text"
+                className="form-control"
+                id="zipCode"
+                onChange={this.handleChange}
+                value={this.state.zipCode}
+                required
+              />
+            </div>
+          </div>
+          <div className="row">
+            <input
+              className="btn btn-dark"
+              type="submit"
+              value="Sign Up"
+            ></input>
+          </div>
+          <p className="text-center">Or...</p>
+          <div className="row mx-auto">
+            <Link to="/login" className="text-center">
+              Log In Here
+            </Link>
           </div>
         </form>
       </div>
@@ -172,10 +196,10 @@ export default class Signup extends React.Component {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     auth: (email, password, method) => dispatch(auth(email, password, method)),
-//   };
-// };
+const mapDispatch = (dispatch) => {
+  return {
+    auth: (info, method) => dispatch(auth(info, method)),
+  };
+};
 
-// export default connect(null, mapDispatch)(Login);
+export default connect(null, mapDispatch)(Signup);

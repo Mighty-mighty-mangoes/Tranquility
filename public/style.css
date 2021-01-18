@@ -5,6 +5,7 @@ body {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 label {
@@ -18,11 +19,21 @@ nav a {
 
 form div {
   margin: 1em;
-  display: inline-block;
 }
 
 nav {
   height: 50px;
+}
+
+li a {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .navbar-nav {
@@ -30,11 +41,26 @@ nav {
 }
 
 .featureImage {
-  height: 500px;
+  height: 400px;
+  box-shadow: 10px 10px 8px;
 }
 
-.container-md {
+.container-login {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
   width: 25%;
+}
+
+.container-signup {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.col {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* REFER TO Candles list View */
@@ -46,18 +72,51 @@ nav {
   align-items: baseline;
   padding: 10px;
 }
-/* child of list-wrapper */
-.item-container {
+.img-list-view {
+  width: 250px;
+  border-radius: 1%;
+  padding: 15px;
+}
+h1 {
+  color: rgb(70, 79, 85);
+}
+/* single page view */
+.single-list-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
   border: 5px;
-  flex-basis: auto;
-  max-width: 25%;
+  max-width: 75%;
   margin: auto;
+  flex-basis: auto;
+  align-content: space-evenly;
+  color: rgb(70, 79, 85);
 }
-.img-list-view {
-  width: 250px;
+.img-single-view {
+  max-width: 50%;
+  border-radius: 1%;
+}
+.warning {
+  color: red;
+}
+/* bootstrap for grid layout */
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+  align-content: flex-start;
+}
+
+.row {
+  padding: 10px;
+}
+
+.col-sm-3 {
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 10px;
 }

@@ -22,7 +22,8 @@ class Login extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.props.auth(this.state.email, this.state.password, 'login');
+    await this.props.auth(this.state, 'login');
+    localStorage.setItem('user', this.props.user);
     this.setState({
       email: '',
       password: '',
@@ -33,7 +34,7 @@ class Login extends React.Component {
     return (
       <div className="mx-auto mt-3">
         <h2 className="text-center">Log In to Your Account:</h2>
-        <form className="container-md" onSubmit={this.handleSubmit}>
+        <form className="container-login" onSubmit={this.handleSubmit}>
           <div className="row mb-3">
             <label htmlFor="email" className="form-label">
               Email
@@ -60,9 +61,18 @@ class Login extends React.Component {
               value={this.state.password}
             />
           </div>
-          <input className="btn btn-dark" type="submit" value="Submit"></input>
           <div className="row">
-            <Link to="/signup">Sign Up Here</Link>
+            <input
+              className="btn btn-dark"
+              type="submit"
+              value="Submit"
+            ></input>
+          </div>
+          <p className="text-center">Or...</p>
+          <div className="row mx-auto">
+            <Link to="/signup" className="text-center">
+              Sign Up Here
+            </Link>
           </div>
         </form>
       </div>
@@ -70,10 +80,16 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapState = (state) => {
   return {
-    auth: (email, password, method) => dispatch(auth(email, password, method)),
+    user: state.user,
   };
 };
 
-export default connect(null, mapDispatch)(Login);
+const mapDispatch = (dispatch) => {
+  return {
+    auth: (info, method) => dispatch(auth(info, method)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(Login);
