@@ -22,7 +22,6 @@ export class SingleCandle extends React.Component {
         <br />
         <h2>
           <center>
-            Price: {candle.formattedPrice}
             <br />
             This {candle.size}, {candle.color} candle will awaken your senses
             and remind you of your favorite {candle.theme}. {candle.description}
@@ -31,9 +30,18 @@ export class SingleCandle extends React.Component {
         </h2>
         {candle.stock < 10 && (
           <h3 className="warning">
-            Hurry! Supplies are limited! Only {candle.stock} remaining...
+            Hurry! Supplies are limited! <br />
+            Only {candle.stock} remaining...
           </h3>
         )}
+        <h3>
+          <center>Price: {candle.formattedPrice}</center>
+        </h3>
+        <input
+          className="btn btn-dark"
+          type="submit"
+          value="Add to Cart"
+        ></input>
       </div>
     );
   }

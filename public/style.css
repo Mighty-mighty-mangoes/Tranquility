@@ -42,6 +42,7 @@ nav {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  flex-basis: 1;
   justify-content: center;
   align-items: baseline;
   padding: 10px;
@@ -59,15 +60,16 @@ nav {
   max-width: 25%;
   margin: auto;
   border: 0.5px;
-  flex-basis: auto;
+  flex: 1 1;
   align-content: space-evenly;
-  border-style: double;
-  border-color: rgb(200, 211, 223);
+  /* border-style: double;
+  border-color: rgb(200, 211, 223); */
   color: rgb(70, 79, 85);
 }
 .img-list-view {
   width: 250px;
   border-radius: 1%;
+  padding: 15px;
 }
 h1 {
   color: rgb(70, 79, 85);

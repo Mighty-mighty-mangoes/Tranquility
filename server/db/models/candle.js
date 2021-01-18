@@ -70,12 +70,12 @@ Candle.beforeCreate((candle) => {
 });
 
 //to make ingredients list sentence ready-tested in repl
-Candle.properIngredients = function (candle) {
-  let array = candle.ingredients;
-  let last = array.pop().toString();
-  let ready = array.join(', ');
+// Candle.properIngredients = function (candle) {
+//   let array = candle.ingredients;
+//   let last = array.pop().toString();
+//   let ready = array.join(', ');
 
-  return ready.concat(`, and ${last}`);
-};
+//   return ready.concat(`, and ${last}`);
+// };
 
 module.exports = Candle;

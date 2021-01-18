@@ -16,6 +16,7 @@ export class AllCandles extends React.Component {
         <h1>
           <center>...all our candles...</center>
         </h1>
+
         <div className="list-wrapper">
           {candles.map((candle) => {
             return (
@@ -28,18 +29,26 @@ export class AllCandles extends React.Component {
                       <center>{candle.name}</center>
                     </strong>
                   </h4>
-                  <Link to={`/viewSingleCandle/${candle.id}`}>
-                    <img src={candle.imageUrl} className="img-list-view" />
-                  </Link>
-                  <p>from our {candle.theme} collection...</p>
+                  <img src={candle.imageUrl} className="img-list-view" />
+                  <center>Price: {candle.formattedPrice}</center>
                   {candle.stock < 10 && (
                     <h6 className="warning">
-                      <center>
-                        Hurry! Supplies are limited! Only {candle.stock}{' '}
-                        remaining...
-                      </center>
+                      <center> Hurry! Only {candle.stock} remaining...</center>
                     </h6>
                   )}
+                  <center>
+                    <p>
+                      This {candle.size} sized candle is from our {candle.theme}{' '}
+                      collection...
+                    </p>
+                  </center>{' '}
+                  <br />
+                  <Link
+                    to={`/viewSingleCandle/${candle.id}`}
+                    className="btn btn-secondary btn-sm"
+                  >
+                    more info
+                  </Link>
                 </div>
               </div>
             );

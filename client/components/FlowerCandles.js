@@ -28,10 +28,19 @@ export class FlowerCandles extends React.Component {
                       <center>{candle.name}</center>
                     </strong>
                   </h4>
-                  <Link to={`/viewSingleCandle/${candle.id}`}>
-                    <img src={candle.imageUrl} className="img-list-view" />
+                  <img src={candle.imageUrl} className="img-list-view" />
+                  <center>Price: {candle.formattedPrice}</center>
+                  {candle.stock < 10 && (
+                    <h6 className="warning">
+                      <center>Hurry! Only {candle.stock} remaining...</center>
+                    </h6>
+                  )}
+                  <Link
+                    to={`/viewSingleCandle/${candle.id}`}
+                    className="btn btn-secondary btn-sm"
+                  >
+                    more info
                   </Link>
-                  <p>{candle.theme}.</p>
                 </div>
               </div>
             );
