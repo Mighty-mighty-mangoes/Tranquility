@@ -37,27 +37,51 @@ nav {
   width: 25%;
 }
 
-/* REFER TO Candles list View */
-.list-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  padding: 10px;
+.img-list-view {
+  width: 250px;
+  border-radius: 1%;
+  padding: 15px;
 }
-/* child of list-wrapper */
-.item-container {
+h1 {
+  color: rgb(70, 79, 85);
+}
+/* single page view */
+.single-list-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
   border: 5px;
-  flex-basis: auto;
-  max-width: 25%;
+  max-width: 75%;
   margin: auto;
+  flex-basis: auto;
+  align-content: space-evenly;
+  color: rgb(70, 79, 85);
 }
-.img-list-view {
-  width: 250px;
+.img-single-view {
+  max-width: 50%;
+  border-radius: 1%;
+}
+.warning {
+  color: red;
+}
+/* bootstrap for grid layout */
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+  align-content: flex-start;
+}
+
+.row {
+  padding: 10px;
+}
+
+.col-sm-3 {
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 10px;
 }

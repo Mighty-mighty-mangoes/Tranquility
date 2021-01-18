@@ -9,17 +9,36 @@ export class SingleCandle extends React.Component {
   }
 
   render() {
-    const {candle} = this.props;
-    //console.log('in single candle render', candle)
+    const candle = this.props.candle.singleCandle;
+    console.log('in single candle render', candle);
     return (
-      <div className="singleCandle">
-        <h2>{candle.name}</h2>
+      <div className="single-list-wrapper">
+        <h1>
+          <center>
+            experience... <strong>{candle.name}</strong>
+          </center>
+        </h1>
+        <img src={candle.imageUrl} className="img-single-view" />
+        <br />
+        <h2>
+          <center>
+            <br />
+            This {candle.size}, {candle.color} candle will awaken your senses
+            and remind you of your favorite {candle.theme}. {candle.description}
+            .
+          </center>
+        </h2>
+        {candle.stock < 10 && (
+          <h3 className="warning">Hurry! Only {candle.stock} remaining...</h3>
+        )}
         <h3>
-          This {candle.color} candle will awaken your senses and remind you of
-          your favorite {candle.theme}.
+          <center>Price: {candle.formattedPrice}</center>
         </h3>
-        <p>{candle.description}</p>
-        <h4>Ingredients: {candle.ingredients}</h4>
+        <input
+          className="btn btn-dark"
+          type="submit"
+          value="Add to Cart"
+        ></input>
       </div>
     );
   }
