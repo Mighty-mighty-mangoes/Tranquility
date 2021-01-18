@@ -134,7 +134,7 @@ class Signup extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-6">
+            <div className="col">
               <label htmlFor="city" className="form-label">
                 City
               </label>

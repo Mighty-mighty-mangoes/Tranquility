@@ -57,16 +57,20 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <li className="nav-item">
           <a className="nav-link">Contact</a>
         </li>
-        <li className="nav-item ml-auto">
-          <Link to="/login" className="nav-link">
-            Log In
-          </Link>
-        </li>
-        <li className="nav-item ml-auto">
-          <Link to="/signup" className="nav-link">
-            Sign Up
-          </Link>
-        </li>
+        {isLoggedIn ? (
+          <li className="nav-item">
+            <a className="nav-link">Logout</a>
+          </li>
+        ) : (
+          <li className="row nav-item">
+            <Link to="/login" className="col nav-link">
+              Log In
+            </Link>
+            <Link to="/signup" className="col nav-link">
+              Sign Up
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   </div>
@@ -81,20 +85,20 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    handleClick() {
-      dispatch(logout());
-    },
-  };
-};
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleClick() {
+//       dispatch(logout());
+//     },
+//   };
+// };
 
-export default connect(mapState, mapDispatch)(Navbar);
+export default connect(mapState)(Navbar);
 
 /**
  * PROP TYPES
  */
-Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-};
+// Navbar.propTypes = {
+//   handleClick: PropTypes.func.isRequired,
+//   isLoggedIn: PropTypes.bool.isRequired,
+// };
