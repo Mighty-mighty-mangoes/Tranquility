@@ -5,6 +5,7 @@ body {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 label {
@@ -18,11 +19,21 @@ nav a {
 
 form div {
   margin: 1em;
-  display: inline-block;
 }
 
 nav {
   height: 50px;
+}
+
+li a {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .navbar-nav {
@@ -30,13 +41,37 @@ nav {
 }
 
 .featureImage {
-  height: 500px;
+  height: 400px;
+  box-shadow: 10px 10px 8px;
 }
 
-.container-md {
+.container-login {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
   width: 25%;
 }
 
+.container-signup {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.col {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* REFER TO Candles list View */
+.list-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  padding: 10px;
+}
 .img-list-view {
   width: 250px;
   border-radius: 1%;
