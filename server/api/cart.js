@@ -7,7 +7,7 @@ module.exports = router;
 router.get('/', async (req, res, next) => {
   const [order, created] = await Order.findOrCreate({
     where: {userId: req.user.id, purchased: false},
-    include: [OrderItem, Candle],
+    include: Candle,
   });
   res.json(order);
 });
@@ -26,7 +26,6 @@ router.post('/', async (req, res, next) => {
         where: {userId: req.user.id, purchased: false},
         include: OrderItem,
       });
-      console.log(order);
       const matchingItems = order.orderItems.filter(
         (item) => item.candleId === candleId
       );
@@ -98,9 +97,8 @@ router.post('/checkout', async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {userId: req.user.id, purchased: false},
-      include: [OrderItem, Candle],
+      include: Candle,
     });
-    // What if some items have insufficient stock? Should we purchase only those that are in stock or cancel the entire order?
     let insufficientStock = false;
     for (let i = 0; i < order.candles.length; i++) {
       if (order.candles[i].stock < order.candles[i].orderItem.quantity) {

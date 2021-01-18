@@ -29,7 +29,7 @@ export const getCartContents = (user) => {
     if (user.id) {
       const order = await axios.get('/api/cart');
       if (order.data) {
-        cartContents = order.data.orderItems;
+        cartContents = order.data.candles;
       }
     }
     dispatch(setCartContents(cartContents));
@@ -38,7 +38,7 @@ export const getCartContents = (user) => {
 export const addItemToCart = (cartItem, user) => {
   return async (dispatch) => {
     if (user.id) {
-      await axios.post('/api/cart', cartItem);
+      await axios.post('/api/cart', cartItem.orderItem);
     }
     dispatch(addCartItem(cartItem));
   };
@@ -46,7 +46,7 @@ export const addItemToCart = (cartItem, user) => {
 export const editItemInCart = (cartItem, user) => {
   return async (dispatch) => {
     if (user.id) {
-      await axios.put('/api/cart', cartItem);
+      await axios.put('/api/cart', cartItem.orderItem);
     }
     dispatch(editCartItem(cartItem));
   };
@@ -54,7 +54,7 @@ export const editItemInCart = (cartItem, user) => {
 export const deleteItemFromCart = (cartItem, user) => {
   return async (dispatch) => {
     if (user.id) {
-      await axios.delete('/api/cart', cartItem);
+      await axios.delete('/api/cart', cartItem.orderItem);
     }
   };
 };
@@ -76,7 +76,9 @@ export default function cartItemReducer(state = initialState, action) {
       if (index < cartContents.length) {
         cartContents[index] = {
           candle: action.cartItem.candle,
-          quantity: cartContents[index].quantity + action.cartItem.quantity,
+          quantity:
+            cartContents[index].order.quantity +
+            action.cartItem.orderItem.quantity,
         };
       } else {
         cartContents.push(action.cartItem);
@@ -93,9 +95,7 @@ export default function cartItemReducer(state = initialState, action) {
         };
       }
       let cartContents = state.cartContents.map((cartItem) =>
-        cartItem.candle.id === action.cartItem.candle.id
-          ? action.cartItem
-          : cartItem
+        cartItem.id === action.cartItem.id ? action.cartItem : cartItem
       );
       return {...state, cartContents};
     }
@@ -103,7 +103,7 @@ export default function cartItemReducer(state = initialState, action) {
       return {
         ...state,
         cartContents: state.cartContents.filter(
-          (cartItem) => cartItem.candle.id !== action.cartItem.candle.id
+          (cartItem) => cartItem.id !== action.cartItem.id
         ),
       };
     case SET_CART_CONTENTS:

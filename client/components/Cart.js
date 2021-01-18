@@ -16,10 +16,9 @@ export class Cart extends React.Component {
       <div className="list-wrapper">
         {cartContents.map((cartItem) => {
           return (
-            <div key={cartItem.candleId} className="item-container">
-              {console.log('cartItem', cartItem)}
-              <p>candleId: {cartItem.candleId}</p>
-              <p>Quantity: {cartItem.quantity}</p>
+            <div key={cartItem.id} className="item-container">
+              <p>candleId: {cartItem.id}</p>
+              <p>Quantity: {cartItem.orderItem.quantity}</p>
             </div>
           );
         })}
