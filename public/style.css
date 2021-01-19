@@ -77,7 +77,7 @@ h1 {
   border-radius: 1%;
   padding: 15px;
 }
-h1 {
+.page-title {
   color: rgb(70, 79, 85);
 }
 /* single page view */
@@ -116,7 +116,5 @@ h1 {
 }
 
 .col-sm-3 {
-  margin: auto;
-  margin-bottom: 10px;
-  padding: 10px;
+  padding: 20px;
 }
