@@ -2,14 +2,22 @@
 const router = require('express').Router();
 const {Candle, Order, OrderItem} = require('../db/models');
 module.exports = router;
+const matchUserOrSession = (req) =>
+  req.user
+    ? {userId: req.user.id, purchased: false}
+    : {sessionID: req.sessionID, purchased: false};
 
 // get cart contents for a logged-in user
 router.get('/', async (req, res, next) => {
-  const [order, created] = await Order.findOrCreate({
-    where: {userId: req.user.id, purchased: false},
-    include: Candle,
-  });
-  res.json(order);
+  try {
+    const [order, created] = await Order.findOrCreate({
+      where: matchUserOrSession(req),
+      include: Candle,
+    });
+    res.json(order);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // add an item to the cart for a logged-in user
@@ -23,13 +31,12 @@ router.post('/', async (req, res, next) => {
     const candleId = parseInt(req.body.candleId, 10);
     if (quantity > 0) {
       const [order, created] = await Order.findOrCreate({
-        where: {userId: req.user.id, purchased: false},
+        where: matchUserOrSession(req),
         include: OrderItem,
       });
       const matchingItems = order.orderItems.filter(
         (item) => item.candleId === candleId
       );
-      console.log(matchingItems);
       if (matchingItems.length) {
         quantity += matchingItems[0].quantity;
         await matchingItems[0].update({quantity});
@@ -55,7 +62,7 @@ router.put('/', async (req, res, next) => {
     const candleId = parseInt(req.body.candleId, 10);
     const quantity = parseInt(req.body.quantity, 10);
     const order = await Order.findOne({
-      where: {userId: req.user.id, purchased: false},
+      where: matchUserOrSession(req),
       include: OrderItem,
     });
     const matchingItems = order.orderItems.filter(
@@ -80,7 +87,7 @@ router.delete('/', async (req, res, next) => {
   try {
     const candleId = parseInt(req.body.candleId, 10);
     const order = await Order.findOne({
-      where: {userId: req.user.id, purchased: false},
+      where: matchUserOrSession(req),
       include: OrderItem,
     });
     const matchingItems = order.orderItems.filter(
@@ -96,7 +103,7 @@ router.delete('/', async (req, res, next) => {
 router.post('/checkout', async (req, res, next) => {
   try {
     const order = await Order.findOne({
-      where: {userId: req.user.id, purchased: false},
+      where: matchUserOrSession(req),
       include: Candle,
     });
     let insufficientStock = false;

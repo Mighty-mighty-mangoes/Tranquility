@@ -23,15 +23,10 @@ const setCartContents = (cartContents) => {
 };
 
 // Thunk creators
-export const getCartContents = (user) => {
+export const getCartContents = () => {
   return async (dispatch) => {
-    let cartContents = [];
-    if (user.id) {
-      const order = await axios.get('/api/cart');
-      if (order.data) {
-        cartContents = order.data.candles;
-      }
-    }
+    const order = await axios.get('/api/cart');
+    const cartContents = (order.data && order.data.candles) || [];
     dispatch(setCartContents(cartContents));
   };
 };

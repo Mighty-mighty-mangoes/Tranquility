@@ -6,7 +6,7 @@ import {me} from '../store/user';
 export class Cart extends React.Component {
   async componentDidMount() {
     await this.props.loadUser();
-    await this.props.loadCartContents(this.props.user);
+    await this.props.loadCartContents();
   }
 
   render() {
@@ -35,7 +35,7 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => ({
   loadUser: () => dispatch(me()),
-  loadCartContents: (user) => dispatch(getCartContents(user)),
+  loadCartContents: () => dispatch(getCartContents()),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
