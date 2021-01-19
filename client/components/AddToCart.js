@@ -12,10 +12,6 @@ export class AddToCart extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    await this.props.loadUser();
-  }
-
   handleChange(event) {
     this.setState({quantity: event.target.value});
   }
@@ -67,7 +63,6 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  loadUser: () => dispatch(me()),
   addItem: (item, user) => dispatch(addItemToCart(item, user)),
 });
 
