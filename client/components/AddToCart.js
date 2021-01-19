@@ -1,6 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+//work in progress- candleId should come in as props from whatever component is using this
+//state holds quantity on change but add to cart will submit that number
+// submit not finished console.log for testing
+
 export class AddToCart extends React.Component {
   constructor(props) {
     super(props);
