@@ -30,27 +30,21 @@ export const getCartContents = () => {
     dispatch(setCartContents(cartContents));
   };
 };
-export const addItemToCart = (cartItem, user) => {
+export const addItemToCart = (cartItem) => {
   return async (dispatch) => {
-    if (user.id) {
-      await axios.post('/api/cart', cartItem.orderItem);
-    }
+    await axios.post('/api/cart', cartItem.orderItem);
     dispatch(addCartItem(cartItem));
   };
 };
-export const editItemInCart = (cartItem, user) => {
+export const editItemInCart = (cartItem) => {
   return async (dispatch) => {
-    if (user.id) {
-      await axios.put('/api/cart', cartItem.orderItem);
-    }
+    await axios.put('/api/cart', cartItem.orderItem);
     dispatch(editCartItem(cartItem));
   };
 };
 export const deleteItemFromCart = (cartItem, user) => {
   return async (dispatch) => {
-    if (user.id) {
-      await axios.delete('/api/cart', cartItem.orderItem);
-    }
+    await axios.delete('/api/cart', cartItem.orderItem);
   };
 };
 

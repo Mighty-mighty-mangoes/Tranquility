@@ -9,6 +9,7 @@ const matchUserOrSession = (req) =>
 
 // get cart contents for a logged-in user
 router.get('/', async (req, res, next) => {
+  console.log('Session ID', req.sessionID);
   try {
     const [order, created] = await Order.findOrCreate({
       where: matchUserOrSession(req),
