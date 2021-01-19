@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchFoodCandles} from '../store/candles';
+import AddToCart from './AddToCart';
 
 export class FoodCandles extends React.Component {
   componentDidMount() {
@@ -14,13 +15,13 @@ export class FoodCandles extends React.Component {
 
     return (
       <div className="container">
-        <h1>
+        <h1 className="page-title">
           <center>...candles for food lovers...</center>
         </h1>
         <div className="row">
           {candles.map((candle) => {
             return (
-              <div key={candle.id} className="col-sm-3">
+              <div key={candle.id} className="col-sm-3 border border-muted">
                 <div>
                   <h4>
                     <small>experience...</small> <br></br>
@@ -28,19 +29,22 @@ export class FoodCandles extends React.Component {
                       <center>{candle.name}</center>
                     </strong>
                   </h4>
-                  <img src={candle.imageUrl} className="img-list-view" />
-                  <center>Price: {candle.formattedPrice}</center>
-                  {candle.stock < 10 && (
-                    <h6 className="warning">
-                      <center>Hurry! Only {candle.stock} remaining...</center>
-                    </h6>
-                  )}
-                  <Link
-                    to={`/viewSingleCandle/${candle.id}`}
-                    className="btn btn-secondary btn-sm"
-                  >
-                    more info
-                  </Link>
+                  <center>
+                    <img src={candle.imageUrl} className="img-list-view" />
+                    <br />
+                    Price: {candle.formattedPrice}
+                  </center>
+
+                  <center>
+                    <Link to={`/viewSingleCandle/${candle.id}`}>more info</Link>
+                    <br />
+                    <AddToCart candleId={candle.id} />
+                    {candle.stock < 10 && (
+                      <h6 className="warning">
+                        <center>Hurry! Only {candle.stock} remaining...</center>
+                      </h6>
+                    )}
+                  </center>
                 </div>
               </div>
             );

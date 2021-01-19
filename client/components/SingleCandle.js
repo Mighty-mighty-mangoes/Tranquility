@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchSingleCandle} from '../store/candles';
+import AddToCart from './AddToCart';
 
 export class SingleCandle extends React.Component {
   componentDidMount() {
@@ -10,10 +11,9 @@ export class SingleCandle extends React.Component {
 
   render() {
     const candle = this.props.candle.singleCandle;
-    console.log('in single candle render', candle);
     return (
       <div className="single-list-wrapper">
-        <h1>
+        <h1 className="page-title">
           <center>
             experience... <strong>{candle.name}</strong>
           </center>
@@ -31,14 +31,11 @@ export class SingleCandle extends React.Component {
         {candle.stock < 10 && (
           <h3 className="warning">Hurry! Only {candle.stock} remaining...</h3>
         )}
+        <br />
         <h3>
           <center>Price: {candle.formattedPrice}</center>
         </h3>
-        <input
-          className="btn btn-dark"
-          type="submit"
-          value="Add to Cart"
-        ></input>
+        <AddToCart candleId={candle.id} />
       </div>
     );
   }
