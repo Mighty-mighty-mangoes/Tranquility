@@ -38,7 +38,6 @@ export const getCartContents = (user) => {
 };
 export const addItemToCart = (candle, quantity, user) => {
   return async (dispatch) => {
-    console.log('Inside thunk creator addItemToCart');
     const orderItem = {candleId: candle.id, quantity};
     const cartItem = {...candle, orderItem};
     if (user.id) {

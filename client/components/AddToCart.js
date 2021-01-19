@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import addItemToCart from '../store/cart';
+import {addItemToCart} from '../store/cart';
 import me from '../store/user';
 
 export class AddToCart extends React.Component {

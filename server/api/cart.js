@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
 // increments the quantity by req.body.quantity
 router.post('/', async (req, res, next) => {
   try {
-    console.log('Inside POST for /api/cart, req.body:', req.body);
     let quantity = parseInt(req.body.quantity, 10);
     const candleId = parseInt(req.body.candleId, 10);
     if (quantity > 0) {
