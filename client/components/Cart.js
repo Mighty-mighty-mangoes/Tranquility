@@ -9,19 +9,34 @@ export class Cart extends React.Component {
     await this.props.loadCartContents(this.props.user);
   }
 
+  getTotal() {
+    let total = 0;
+    this.props.cartContents.map((item) => {
+      // total += item.candles.price?
+    });
+  }
+
   render() {
     const cartContents = this.props.cartContents || [];
     console.log('Props:', this.props);
     return (
-      <div className="list-wrapper">
-        {cartContents.map((cartItem) => {
-          return (
-            <div key={cartItem.id} className="item-container">
-              <p>candleId: {cartItem.id}</p>
-              <p>Quantity: {cartItem.orderItem.quantity}</p>
-            </div>
-          );
-        })}
+      <div className="container">
+        <div className="row">
+          <div className="col-8 m-3 cartList">
+            <h2>Your Cart:</h2>
+            {cartContents.map((cartItem) => {
+              return (
+                <div key={cartItem.id} className="item-container">
+                  <p>candleId: {cartItem.id}</p>
+                  <p>Quantity: {cartItem.orderItem.quantity}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="col-3 m-3 cartList">
+            <h2>Total:</h2>
+          </div>
+        </div>
       </div>
     );
   }

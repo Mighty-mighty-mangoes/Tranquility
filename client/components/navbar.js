@@ -14,6 +14,11 @@ class Navbar extends React.Component {
     return (
       <div>
         <img src={logo} className="img-fluid d-block" />
+        <div className="text-end me-3">
+          <Link to="/cart" className="m-2 p-2 cartLink">
+            🛒Cart
+          </Link>
+        </div>
         <nav
           className="navbar navbar-expand-sm navbar-light"
           style={{backgroundColor: '#BEDCFE'}}
@@ -39,29 +44,29 @@ class Navbar extends React.Component {
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-              <Link to="/allCandles" className="dropdown-item">
-                All Candles
-              </Link>
-            </li>
-            <li>
-              <Link to="/foodCandles" className="dropdown-item">
-                Food
-              </Link>
-            </li>
-            <li>
-              <Link to="/flowerCandles" className="dropdown-item">
-                Flowers
-              </Link>
-            </li>
-            <li>
-              <Link to="/spiceCandles" className="dropdown-item">
-                Spices
-              </Link>
-            </li>
-            <li>
-              <Link to="/coderCandles" className="dropdown-item">
-                Candles for Coders
-              </Link>
+                  <Link to="/allCandles" className="dropdown-item">
+                    All Candles
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/foodCandles" className="dropdown-item">
+                    Food
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/flowerCandles" className="dropdown-item">
+                    Flowers
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/spiceCandles" className="dropdown-item">
+                    Spices
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/coderCandles" className="dropdown-item">
+                    Candles for Coders
+                  </Link>
                 </li>
               </ul>
             </li>

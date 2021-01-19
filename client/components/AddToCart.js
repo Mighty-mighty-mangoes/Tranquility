@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import addItemToCart from '../store/cart';
+import me from '../store/user';
 
 export class AddToCart extends React.Component {
   constructor(props) {
@@ -10,13 +12,20 @@ export class AddToCart extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  async componentDidMount() {
+    await this.props.loadUser();
+  }
+
   handleChange(event) {
     this.setState({quantity: event.target.value});
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     console.log('In add to cart, something added: qty', this.state.quantity);
     event.preventDefault();
+    if (this.props.isLoggedIn) {
+      await this.props.addItem(this.props.candle, this.state.user);
+    }
   }
 
   render() {
@@ -51,4 +60,15 @@ export class AddToCart extends React.Component {
   }
 }
 
-export default connect(null, null)(AddToCart);
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.user.id,
+  };
+};
+
+const mapDispatch = (dispatch) => ({
+  loadUser: () => dispatch(me()),
+  addItem: (item, user) => dispatch(addItemToCart(item, user)),
+});
+
+export default connect(mapState, mapDispatch)(AddToCart);
