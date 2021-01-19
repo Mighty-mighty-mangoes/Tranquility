@@ -1,7 +1,11 @@
 /* eslint-disable no-unused-vars */
+// Refactor: have each method return the order with all items? Then update cart if no database error
+// This would involve refactoring store/cart.js to make all thunks dispatch either setCartContents() or an error handling route
+// Where should errors be stored if there is a database error?
 const router = require('express').Router();
 const {Candle, Order, OrderItem} = require('../db/models');
 module.exports = router;
+
 const matchUserOrSession = (req) =>
   req.user
     ? {userId: req.user.id, purchased: false}
@@ -96,6 +100,48 @@ router.delete('/', async (req, res, next) => {
     );
     await matchingItems[0].destroy();
     res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Transfer contents of a guest order when the guest user logs in or creates an account
+// Destroy the guest order afterwards
+router.post('/addAll', async (req, res, next) => {
+  try {
+    const guestOrder = await Order.findOne({
+      where: {sessionId: req.sessionID, purchased: false},
+    });
+
+    if (guestOrder) {
+      let [signedInOrder, created] = await Order.findOrCreate({
+        where: {userId: req.user.id, purchased: false},
+      });
+
+      if (created) {
+        // Move all order itemsfrom guestOrder to signedInOrder
+        await signedInOrder.setOrderItems(guestOrder.orderItems);
+      } else {
+        // For each order item, add it to the cart (if not present) or update the existing item
+        await Promise.all(
+          guestOrder.orderItems.map((item) => {
+            if (!signedInOrder.hasCandle(item.id)) {
+              item.setOrder(signedInOrder);
+            } else {
+              // Find corresponding item and update the quantity
+              const matchingItem = signedInOrder.getCandle(item.id).orderItem;
+              matchingItem.update({
+                quantity: matchingItem.quantity + item.quantity,
+              });
+            }
+          })
+        );
+      }
+
+      await guestOrder.destroy();
+      signedInOrder = await Order.findByPk(signedInOrder.id, {include: Candle});
+      res.json(signedInOrder);
+    }
   } catch (error) {
     next(error);
   }
