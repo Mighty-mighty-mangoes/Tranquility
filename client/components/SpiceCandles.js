@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import {fetchSpiceCandles} from '../store/candles';
-import AddToCart from './AddToCart';
+import CandleBlock from './CandleBlock';
 
 export class SpiceCandles extends React.Component {
   componentDidMount() {
@@ -20,37 +19,9 @@ export class SpiceCandles extends React.Component {
         </h1>
         {/* <div className="list-wrapper"> */}
         <div className="row">
-          {candles.map((candle) => {
-            return (
-              <div key={candle.id} className="col-sm-3 border border-muted">
-                <div>
-                  <h4>
-                    <small>experience...</small>
-                    <br />{' '}
-                    <strong>
-                      <center>{candle.name}</center>
-                    </strong>
-                  </h4>
-                  <center>
-                    <img src={candle.imageUrl} className="img-list-view" />
-                    <br />
-                    Price: {candle.formattedPrice}
-                  </center>
-
-                  <center>
-                    <Link to={`/viewSingleCandle/${candle.id}`}>more info</Link>
-                    <br />
-                    <AddToCart candleId={candle.id} />
-                    {candle.stock < 10 && (
-                      <h6 className="warning">
-                        <center>Hurry! Only {candle.stock} remaining...</center>
-                      </h6>
-                    )}
-                  </center>
-                </div>
-              </div>
-            );
-          })}
+          {candles.map((candle) => (
+            <CandleBlock key={candle.id} candle={candle} />
+          ))}
         </div>
       </div>
     );
