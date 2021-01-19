@@ -10,6 +10,7 @@ const SET_CART_CONTENTS = 'SET_CART_CONTENTS';
 
 // Action creators
 const addCartItem = (cartItem) => {
+  console.log('Inside addCartItem action creator');
   return {type: ADD_CART_ITEM, cartItem};
 };
 const editCartItem = (cartItem) => {
@@ -35,27 +36,35 @@ export const getCartContents = (user) => {
     dispatch(setCartContents(cartContents));
   };
 };
-export const addItemToCart = (cartItem, user) => {
+export const addItemToCart = (candle, quantity, user) => {
   return async (dispatch) => {
+    console.log('Inside thunk creator addItemToCart');
+    const orderItem = {candleId: candle.id, quantity};
+    const cartItem = {...candle, orderItem};
     if (user.id) {
-      await axios.post('/api/cart', cartItem.orderItem);
+      await axios.post('/api/cart', orderItem);
     }
     dispatch(addCartItem(cartItem));
   };
 };
-export const editItemInCart = (cartItem, user) => {
+export const editItemInCart = (candle, quantity, user) => {
   return async (dispatch) => {
+    const orderItem = {candleId: candle.id, quantity};
+    const cartItem = {...candle, orderItem};
     if (user.id) {
-      await axios.put('/api/cart', cartItem.orderItem);
+      await axios.put('/api/cart', orderItem);
     }
     dispatch(editCartItem(cartItem));
   };
 };
-export const deleteItemFromCart = (cartItem, user) => {
+export const deleteItemFromCart = (candle, user) => {
   return async (dispatch) => {
+    const orderItem = {candleId: candle.id};
+    const cartItem = {...candle, orderItem};
     if (user.id) {
-      await axios.delete('/api/cart', cartItem.orderItem);
+      await axios.delete('/api/cart', orderItem);
     }
+    dispatch(deleteCartItem(cartItem));
   };
 };
 
@@ -64,7 +73,7 @@ const initialState = {cartContents: []};
 export default function cartItemReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_CART_ITEM: {
-      if (action.cartItem.quantity === 0) return state;
+      if (action.cartItem.orderItem.quantity === 0) return state;
       let cartContents = [...state.cartContents];
       let index = 0;
       while (
@@ -74,11 +83,11 @@ export default function cartItemReducer(state = initialState, action) {
         index++;
       }
       if (index < cartContents.length) {
+        const orderItem = {...action.cartItem.orderItem};
+        orderItem.quantity += cartContents[index].orderItem.quantity;
         cartContents[index] = {
-          candle: action.cartItem.candle,
-          quantity:
-            cartContents[index].order.quantity +
-            action.cartItem.orderItem.quantity,
+          ...cartContents[index],
+          orderItem,
         };
       } else {
         cartContents.push(action.cartItem);
@@ -90,14 +99,16 @@ export default function cartItemReducer(state = initialState, action) {
         return {
           ...state,
           cartContents: state.cartContents.filter(
-            (cartItem) => cartItem.candle.id !== action.cartItem.candle.id
+            (cartItem) => cartItem.id !== action.cartItem.id
           ),
         };
       }
-      let cartContents = state.cartContents.map((cartItem) =>
-        cartItem.id === action.cartItem.id ? action.cartItem : cartItem
-      );
-      return {...state, cartContents};
+      return {
+        ...state,
+        cartContents: state.cartContents.map((cartItem) =>
+          cartItem.id === action.cartItem.id ? action.cartItem : cartItem
+        ),
+      };
     }
     case DELETE_CART_ITEM:
       return {
