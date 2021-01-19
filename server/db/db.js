@@ -11,6 +11,9 @@ if (process.env.DATABASE_URL) {
     protocol: 'postgres',
     logging: true,
     ssl: true,
+    dialectOptions: {
+      ssl: true,
+    },
   });
 } else {
   db = new Sequelize(`postgres://localhost:5432/${databaseName}`, {
