@@ -2,11 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getCartContents, deleteItemFromCart, checkoutCart} from '../store/cart';
 import EditCartItem from './EditCartItem';
-import {me, checkout} from '../store/user';
+import {me} from '../store/user';
 
 export class Cart extends React.Component {
   constructor() {
     super();
+    this.handleClick = this.handleClick.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -74,7 +75,7 @@ export class Cart extends React.Component {
             <button
               type="submit"
               onClick={(event) => this.handleCheckout(event)}
-              className="btn btn-secondary btn-sm"
+              className="btn m-3 btn-secondary btn-sm"
             >
               Checkout
             </button>
