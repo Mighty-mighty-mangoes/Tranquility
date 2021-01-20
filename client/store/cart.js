@@ -26,47 +26,64 @@ const setCartContents = (cartContents) => {
 // Thunk creators
 export const getCartContents = (user) => {
   return async (dispatch) => {
-    let cartContents = [];
-    if (user.id) {
-      const order = await axios.get('/api/cart');
-      if (order.data) {
-        cartContents = order.data.candles;
+    try {
+      let cartContents = [];
+      if (user.id) {
+        const order = await axios.get('/api/cart');
+        if (order.data) {
+          cartContents = order.data.candles;
+        }
       }
+      dispatch(setCartContents(cartContents));
+    } catch (err) {
+      console.log('Something is wrong in the getCartContents thunk: ', err);
     }
-    dispatch(setCartContents(cartContents));
   };
 };
+
 export const addItemToCart = (candle, quantity, user) => {
   return async (dispatch) => {
-    const orderItem = {candleId: candle.id, quantity: parseInt(quantity, 10)};
-    const cartItem = {...candle, orderItem};
-    if (user.id) {
-      await axios.post('/api/cart', orderItem);
+    try {
+      const orderItem = {candleId: candle.id, quantity: parseInt(quantity, 10)};
+      const cartItem = {...candle, orderItem};
+      if (user.id) {
+        await axios.post('/api/cart', orderItem);
+      }
+      dispatch(addCartItem(cartItem));
+    } catch (err) {
+      console.log('Something is wrong in the addItemToCart thunk: ', err);
     }
-    dispatch(addCartItem(cartItem));
   };
 };
+
 export const editItemInCart = (candle, quantity, user) => {
   return async (dispatch) => {
-    const orderItem = {candleId: candle.id, quantity: parseInt(quantity, 10)};
-    const cartItem = {...candle, orderItem};
-    if (user.id) {
-      await axios.put('/api/cart', orderItem);
+    try {
+      const orderItem = {candleId: candle.id, quantity: parseInt(quantity, 10)};
+      const cartItem = {...candle, orderItem};
+      if (user.id) {
+        await axios.put('/api/cart', orderItem);
+      }
+      dispatch(editCartItem(cartItem));
+    } catch (err) {
+      console.log('Something is wrong in the editItemInCart thunk: ', err);
     }
-    dispatch(editCartItem(cartItem));
   };
 };
 export const deleteItemFromCart = (candle, user) => {
   return async (dispatch) => {
-    const orderItem = {candleId: candle.id};
-    const cartItem = {...candle, orderItem};
-    if (user.id) {
-      await axios.delete(`/api/cart/${candle.id}`);
+    try {
+      const orderItem = {candleId: candle.id};
+      const cartItem = {...candle, orderItem};
+      if (user.id) {
+        await axios.delete(`/api/cart/${candle.id}`);
+      }
+      dispatch(deleteCartItem(cartItem));
+    } catch (err) {
+      console.log('Something is wrong in the deleteItemFromCart thunk: ', err);
     }
-    dispatch(deleteCartItem(cartItem));
   };
 };
-
 const initialState = {cartContents: []};
 // Reducer
 export default function cartItemReducer(state = initialState, action) {

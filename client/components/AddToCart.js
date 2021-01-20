@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {addItemToCart} from '../store/cart';
-import me from '../store/user';
 
 export class AddToCart extends React.Component {
   constructor() {
@@ -20,7 +19,7 @@ export class AddToCart extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-       await this.props.addItem(
+      await this.props.addItem(
         this.props.candle,
         this.state.quantity,
         this.props.user
@@ -69,7 +68,6 @@ const mapState = (state) => {
   return {
     user: state.user,
     isLoggedIn: !!state.user.id,
-    user: state.user,
   };
 };
 
