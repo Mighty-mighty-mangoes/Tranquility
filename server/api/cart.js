@@ -26,13 +26,18 @@ router.post('/', async (req, res, next) => {
         where: {userId: req.user.id, purchased: false},
         include: OrderItem,
       });
-      const matchingItems = order.orderItems.filter(
-        (item) => item.candleId === candleId
-      );
-      if (matchingItems.length) {
-        quantity += matchingItems[0].quantity;
-        await matchingItems[0].update({quantity});
-      } else {
+      let updatedExistingItem = false;
+      if (!created) {
+        const matchingItems = order.orderItems.filter(
+          (item) => item.candleId === candleId
+        );
+        if (matchingItems.length) {
+          quantity += matchingItems[0].quantity;
+          await matchingItems[0].update({quantity});
+          updatedExistingItem = true;
+        }
+      }
+      if (!updatedExistingItem) {
         const orderItem = await order.createOrderItem({
           quantity,
           candleId,
