@@ -35,7 +35,7 @@ export class SingleCandle extends React.Component {
         <h3>
           <center>Price: {candle.formattedPrice}</center>
         </h3>
-        <AddToCart candleId={candle.id} />
+        <AddToCart candle={candle} />
       </div>
     );
   }
