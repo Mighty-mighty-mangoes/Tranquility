@@ -9,6 +9,7 @@ export {default as Homepage} from './Homepage';
 export {default as Login} from './Login';
 export {default as Signup} from './Signup';
 export {default as Cart} from './Cart';
+export {default as Confirmation} from './Confirmation';
 
 //candle components
 export {default as AllCandles} from './AllCandles';
@@ -17,4 +18,3 @@ export {default as FoodCandles} from './FoodCandles';
 export {default as SpiceCandles} from './SpiceCandles';
 export {default as FlowerCandles} from './FlowerCandles';
 export {default as CoderCandles} from './CoderCandles';
-

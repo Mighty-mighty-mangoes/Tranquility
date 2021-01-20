@@ -47,22 +47,19 @@ export class EditCartItem extends React.Component {
 
   render() {
     return (
-      <div className="btn-group">
-        <form className="btn btn-secondary btn-sm">
+      <div className="col-5 btn-group">
+        <form className="m-2 btn btn-secondary btn-sm">
           <label className="btn btn-secondary btn-sm">
             Quantity
-            <select
-              type="select"
-              className="btn btn-secondary btn-sm dropdown-toggle"
+            <input
+              name="quantity"
+              type="number"
+              min="1"
+              max={this.props.candle.stock}
+              className="form-control"
               value={this.state.quantity}
               onChange={this.handleChange}
-            >
-              {this.quantityOptions.map((item) => (
-                <option value={item.value} key={item.value}>
-                  {item.message}
-                </option>
-              ))}
-            </select>
+            />
           </label>
           <button
             type="submit"

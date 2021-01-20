@@ -85,6 +85,7 @@ export const deleteItemFromCart = (candle, user) => {
     }
   };
 };
+
 const initialState = {cartContents: []};
 // Reducer
 export default function cartItemReducer(state = initialState, action) {
