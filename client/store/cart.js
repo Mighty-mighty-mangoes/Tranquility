@@ -70,6 +70,7 @@ export const editItemInCart = (candle, quantity, user) => {
     }
   };
 };
+
 export const deleteItemFromCart = (candle, user) => {
   return async (dispatch) => {
     try {
