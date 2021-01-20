@@ -36,6 +36,7 @@ export const getCartContents = (user) => {
     dispatch(setCartContents(cartContents));
   };
 };
+
 export const addItemToCart = (candle, quantity, user) => {
   return async (dispatch) => {
     const orderItem = {candleId: candle.id, quantity: parseInt(quantity, 10)};
@@ -46,6 +47,7 @@ export const addItemToCart = (candle, quantity, user) => {
     dispatch(addCartItem(cartItem));
   };
 };
+
 export const editItemInCart = (candle, quantity, user) => {
   return async (dispatch) => {
     const orderItem = {candleId: candle.id, quantity: parseInt(quantity, 10)};
@@ -56,6 +58,7 @@ export const editItemInCart = (candle, quantity, user) => {
     dispatch(editCartItem(cartItem));
   };
 };
+
 export const deleteItemFromCart = (candle, user) => {
   return async (dispatch) => {
     const orderItem = {candleId: candle.id};
