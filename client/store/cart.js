@@ -85,6 +85,24 @@ export const deleteItemFromCart = (candle, user) => {
     }
   };
 };
+
+export const checkoutCart = (cartContents, user) => {
+  return async (dispatch) => {
+    try {
+      let response = user.id
+        ? await axios.post('/api/cart/checkout')
+        : await axios.post('/api/cart/guestCheckout', {cartContents});
+      console.log('Order successful');
+      dispatch(setCartContents([]));
+    } catch (err) {
+      if (err.response.status === 409) {
+        console.log('Insufficient stock');
+      } else {
+        console.log('Something is wrong in the checkoutCart thunk: ', err);
+      }
+    }
+  };
+};
 const initialState = {cartContents: []};
 // Reducer
 export default function cartItemReducer(state = initialState, action) {

@@ -125,3 +125,32 @@ router.post('/checkout', async (req, res, next) => {
     next(error);
   }
 });
+router.post('/guestCheckout', async (req, res, next) => {
+  try {
+    const {cartContents} = req.body;
+    const candles = await Promise.all(
+      cartContents.map((item) => Candle.findByPk(item.id))
+    );
+    let insufficientStock = false;
+    for (let i = 0; i < cartContents.length; i++) {
+      // Add the orderItem
+      candles[i].orderItem = cartContents[i];
+      if (candles[i].stock < cartContents[i].orderItem.quantity) {
+        insufficientStock = true;
+        break;
+      }
+    }
+    if (insufficientStock) {
+      res.status(409);
+    } else {
+      for (let i = 0; i < candles.length; i++) {
+        await candles[i].update({
+          stock: candles[i].stock - cartContents[i].orderItem.quantity,
+        });
+      }
+    }
+    res.json({cartContents, candles});
+  } catch (error) {
+    next(error);
+  }
+});

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCartContents, deleteItemFromCart} from '../store/cart';
+import {getCartContents, deleteItemFromCart, checkoutCart} from '../store/cart';
 import EditCartItem from './EditCartItem';
 import {me} from '../store/user';
 
@@ -24,6 +24,11 @@ export class Cart extends React.Component {
   async handleDelete(event, cartItem) {
     event.preventDefault();
     await this.props.deleteItem(cartItem, this.props.user);
+  }
+
+  async handleCheckout(event) {
+    event.preventDefault();
+    await this.props.checkout(this.props.cartContents, this.props.user);
   }
 
   render() {
@@ -56,6 +61,13 @@ export class Cart extends React.Component {
               style: 'currency',
               currency: 'USD',
             }).format(this.getTotal().toFixed(2))}
+            <button
+              type="submit"
+              onClick={(event) => this.handleCheckout(event)}
+              className="btn btn-secondary btn-sm"
+            >
+              Checkout
+            </button>
           </div>
         </div>
       </div>
@@ -74,6 +86,7 @@ const mapDispatch = (dispatch) => ({
   loadUser: () => dispatch(me()),
   loadCartContents: (user) => dispatch(getCartContents(user)),
   deleteItem: (item, user) => dispatch(deleteItemFromCart(item, user)),
+  checkout: (cartContents, user) => dispatch(checkoutCart(cartContents, user)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
