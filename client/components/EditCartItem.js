@@ -36,13 +36,11 @@ export class EditCartItem extends React.Component {
   async handleSubmit(event) {
     console.log('In edit cart, something edited: qty', this.state.quantity);
     event.preventDefault();
-    if (this.props.isLoggedIn) {
-      await this.props.editItem(
-        this.props.candle,
-        this.state.quantity,
-        this.props.user
-      );
-    }
+    await this.props.editItem(
+      this.props.candle,
+      this.state.quantity,
+      this.props.user
+    );
   }
 
   render() {

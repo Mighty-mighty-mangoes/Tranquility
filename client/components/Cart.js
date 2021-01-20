@@ -7,7 +7,9 @@ import {me} from '../store/user';
 export class Cart extends React.Component {
   async componentDidMount() {
     await this.props.loadUser();
-    await this.props.loadCartContents(this.props.user);
+    if (this.props.isLoggedIn) {
+      await this.props.loadCartContents(this.props.user);
+    }
   }
 
   getTotal() {
@@ -21,9 +23,7 @@ export class Cart extends React.Component {
 
   async handleDelete(event, cartItem) {
     event.preventDefault();
-    if (this.props.isLoggedIn) {
-      await this.props.deleteItem(cartItem, this.props.user);
-    }
+    await this.props.deleteItem(cartItem, this.props.user);
   }
 
   render() {
