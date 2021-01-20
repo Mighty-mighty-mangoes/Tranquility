@@ -2,7 +2,7 @@ import React from 'react';
 import {me} from '../store/user';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {logout} from '../store';
+import {logout, getCartContents} from '../store';
 import logo from '../../public/logo.png';
 
 class Navbar extends React.Component {
@@ -112,6 +112,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout());
+      dispatch(getCartContents());
     },
     loadUser: () => dispatch(me()),
   };

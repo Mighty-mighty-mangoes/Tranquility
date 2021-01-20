@@ -103,6 +103,7 @@ export const checkoutCart = (cartContents, user) => {
     }
   };
 };
+
 const initialState = {cartContents: []};
 // Reducer
 export default function cartItemReducer(state = initialState, action) {

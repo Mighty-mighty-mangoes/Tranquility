@@ -7,6 +7,7 @@ import {me} from '../store/user';
 export class Cart extends React.Component {
   constructor() {
     super();
+    this.handleClick = this.handleClick.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -45,13 +46,18 @@ export class Cart extends React.Component {
             <h2>Your Cart:</h2>
             {cartContents.map((cartItem) => {
               return (
-                <div key={cartItem.id} className="item-container">
-                  <img className="img-thumbnail-view" src={cartItem.imageUrl} />{' '}
-                  {cartItem.name}
+                <div key={cartItem.id} className="container row">
+                  <div className="col">
+                    <img
+                      className="rounded img-thumbnail-view"
+                      src={cartItem.imageUrl}
+                    />
+                    <p className="text-start">{cartItem.name}</p>
+                  </div>
                   <button
                     type="submit"
                     onClick={(event) => this.handleDelete(event, cartItem)}
-                    className="btn btn-secondary btn-sm"
+                    className="col btn"
                   >
                     Remove
                   </button>
@@ -69,7 +75,7 @@ export class Cart extends React.Component {
             <button
               type="submit"
               onClick={(event) => this.handleCheckout(event)}
-              className="btn btn-secondary btn-sm"
+              className="btn m-3 btn-secondary btn-sm"
             >
               Checkout
             </button>

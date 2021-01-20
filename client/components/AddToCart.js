@@ -32,21 +32,17 @@ export class AddToCart extends React.Component {
           <button type="submit" className="btn btn-secondary btn-sm">
             Add to Cart
           </button>
-          <label className="btn btn-secondary btn-sm">
+          <label htmlFor="quantity" className="btn btn-secondary btn-sm">
             Quantity
-            <select
+            <input
               name="quantity"
-              type="select"
-              className="btn btn-secondary btn-sm dropdown-toggle"
+              type="number"
+              min="1"
+              max={this.props.candle.stock}
+              className="form-control"
               value={this.state.quantity}
               onChange={this.handleChange}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            />
           </label>
         </form>
       </div>

@@ -57,6 +57,15 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const checkout = (user) => async () => {
+  try {
+    await axios.post('/api/cart/checkout', user);
+    history.push('/confirmation');
+  } catch (err) {
+    console.log('Something is wrong in the checkout thunk: ', err);
+  }
+};
+
 /**
  * REDUCER
  */
