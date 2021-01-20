@@ -29,7 +29,6 @@ router.post('/', async (req, res, next) => {
       const matchingItems = order.orderItems.filter(
         (item) => item.candleId === candleId
       );
-      console.log(matchingItems);
       if (matchingItems.length) {
         quantity += matchingItems[0].quantity;
         await matchingItems[0].update({quantity});
@@ -76,9 +75,9 @@ router.put('/', async (req, res, next) => {
 // req.body should have the form {candleId}, where
 // the user has an order item tied to req.body.candleId;
 // removes this order item
-router.delete('/', async (req, res, next) => {
+router.delete('/:candleId', async (req, res, next) => {
   try {
-    const candleId = parseInt(req.body.candleId, 10);
+    const candleId = parseInt(req.params.candleId, 10);
     const order = await Order.findOne({
       where: {userId: req.user.id, purchased: false},
       include: OrderItem,

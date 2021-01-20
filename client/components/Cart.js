@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCartContents} from '../store/cart';
+import {getCartContents, deleteItemFromCart} from '../store/cart';
+import EditCartItem from './EditCartItem';
 import {me} from '../store/user';
 
 export class Cart extends React.Component {
@@ -10,15 +11,23 @@ export class Cart extends React.Component {
   }
 
   getTotal() {
-    let total = 0;
-    this.props.cartContents.map((item) => {
-      // total += item.candles.price?
-    });
+    return (
+      this.props.cartContents.reduce(
+        (total, item) => total + item.price * item.orderItem.quantity,
+        0
+      ) / 100
+    );
+  }
+
+  async handleDelete(event, cartItem) {
+    event.preventDefault();
+    if (this.props.isLoggedIn) {
+      await this.props.deleteItem(cartItem, this.props.user);
+    }
   }
 
   render() {
     const cartContents = this.props.cartContents || [];
-    console.log('Props:', this.props);
     return (
       <div className="container">
         <div className="row">
@@ -27,14 +36,22 @@ export class Cart extends React.Component {
             {cartContents.map((cartItem) => {
               return (
                 <div key={cartItem.id} className="item-container">
-                  <p>candleId: {cartItem.id}</p>
-                  <p>Quantity: {cartItem.orderItem.quantity}</p>
+                  <img className="img-thumbnail-view" src={cartItem.imageUrl} />{' '}
+                  {cartItem.name}
+                  <button
+                    type="submit"
+                    onClick={(event) => this.handleDelete(event, cartItem)}
+                    className="btn btn-secondary btn-sm"
+                  >
+                    Remove
+                  </button>
+                  <EditCartItem candle={cartItem} />
                 </div>
               );
             })}
           </div>
           <div className="col-3 m-3 cartList">
-            <h2>Total:</h2>
+            <h2>Total:</h2>$ {this.getTotal()}
           </div>
         </div>
       </div>
@@ -46,11 +63,13 @@ const mapState = (state) => {
   return {
     cartContents: state.cart.cartContents,
     user: state.user,
+    isLoggedIn: !!state.user.id,
   };
 };
 const mapDispatch = (dispatch) => ({
   loadUser: () => dispatch(me()),
   loadCartContents: (user) => dispatch(getCartContents(user)),
+  deleteItem: (item, user) => dispatch(deleteItemFromCart(item, user)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
