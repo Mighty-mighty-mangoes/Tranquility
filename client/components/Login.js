@@ -46,6 +46,7 @@ class Login extends React.Component {
               id="email"
               onChange={this.handleChange}
               value={this.state.email}
+              required
             />
           </div>
           <div className="row mb-3">
@@ -59,6 +60,7 @@ class Login extends React.Component {
               id="password"
               onChange={this.handleChange}
               value={this.state.password}
+              required
             />
           </div>
           <div className="row">
