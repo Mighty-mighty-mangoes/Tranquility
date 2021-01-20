@@ -67,10 +67,46 @@ router.get('/spices', async (req, res, next) => {
 //get single candle by id -works
 router.get('/:candleId', async (req, res, next) => {
   try {
-    const singleCandle = await Candle.findByPk(req.params.candleId);
+    const {candleId} = req.params;
+    const singleCandle = await Candle.findByPk(candleId);
     res.send(singleCandle);
   } catch (err) {
     console.log('error in api/:candleId');
+    next(err);
+  }
+});
+
+//Admin accessible only
+
+const isAdmin = (req, res, next) =>
+  req.user.isAdmin ? next() : res.send('None shall pass!');
+
+router.delete('adminDelete/:candleId', isAdmin, async (req, res, next) => {
+  try {
+    const {candleId} = req.params;
+    const toDelete = await Candle.findByPk(candleId);
+    if (!toDelete) return res.sendStatus(404);
+    await toDelete.destroy();
+  } catch (err) {
+    console.log('error in api/admin delete candle');
+    next(err);
+  }
+});
+
+router.post('adminAdd/:candle', isAdmin, async (req, res, next) => {
+  try {
+    const {name, size, stock, theme, description, price} = req.params.candle;
+    const newCandle = await Candle.create({
+      name,
+      size,
+      stock,
+      theme,
+      description,
+      price,
+    });
+    res.send(newCandle);
+  } catch (err) {
+    console.log('error in api/admin delete candle');
     next(err);
   }
 });

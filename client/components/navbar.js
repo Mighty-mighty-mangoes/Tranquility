@@ -71,10 +71,14 @@ class Navbar extends React.Component {
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link">About Us</a>
+              <Link to="/aboutUs" className="nav-link">
+                About Us
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link">Contact</a>
+              <Link to="/contact" className="nav-link">
+                Contact
+              </Link>
             </li>
             {this.props.isLoggedIn ? (
               <li className="nav-item">
