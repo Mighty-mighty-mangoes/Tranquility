@@ -51,7 +51,11 @@ export class Cart extends React.Component {
             })}
           </div>
           <div className="col-3 m-3 cartList">
-            <h2>Total:</h2>$ {this.getTotal()}
+            <h2>Total:</h2>
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(this.getTotal().toFixed(2))}
           </div>
         </div>
       </div>
