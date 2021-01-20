@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import addItemToCart from '../store/cart';
+import {addItemToCart} from '../store/cart';
 import me from '../store/user';
 
 export class AddToCart extends React.Component {
@@ -20,7 +20,11 @@ export class AddToCart extends React.Component {
     console.log('In add to cart, something added: qty', this.state.quantity);
     event.preventDefault();
     if (this.props.isLoggedIn) {
-      await this.props.addItem(this.props.candle, this.state.user);
+      await this.props.addItem(
+        this.props.candle,
+        this.state.quantity,
+        this.props.user
+      );
     }
   }
 
@@ -30,7 +34,7 @@ export class AddToCart extends React.Component {
         <form className="btn btn-secondary btn-sm">
           <button
             type="submit"
-            onChange={this.handleSubmit}
+            onClick={this.handleSubmit}
             className="btn btn-secondary btn-sm"
           >
             Add to Cart
@@ -40,7 +44,7 @@ export class AddToCart extends React.Component {
             <select
               type="select"
               className="btn btn-secondary btn-sm dropdown-toggle"
-              value={this.state.value}
+              value={this.state.quantity}
               onChange={this.handleChange}
             >
               <option value="1">1</option>
@@ -58,12 +62,14 @@ export class AddToCart extends React.Component {
 
 const mapState = (state) => {
   return {
+    user: state.user,
     isLoggedIn: !!state.user.id,
   };
 };
 
 const mapDispatch = (dispatch) => ({
-  addItem: (item, user) => dispatch(addItemToCart(item, user)),
+  addItem: (item, quantity, user) =>
+    dispatch(addItemToCart(item, quantity, user)),
 });
 
 export default connect(mapState, mapDispatch)(AddToCart);

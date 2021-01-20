@@ -116,3 +116,9 @@ h1 {
   border-radius: 10px;
   padding: 20px;
 }
+
+.img-thumbnail-view {
+  width: 100px;
+  border-radius: 1%;
+  padding: 15px;
+}
