@@ -97,6 +97,7 @@ export const checkoutCart = (cartContents, user) => {
     } catch (err) {
       if (err.response.status === 409) {
         console.log('Insufficient stock');
+        throw err;
       } else {
         console.log('Something is wrong in the checkoutCart thunk: ', err);
       }
