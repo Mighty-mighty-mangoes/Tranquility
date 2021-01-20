@@ -27,14 +27,14 @@ const setCartContents = (cartContents) => {
 export const getCartContents = (user) => {
   return async (dispatch) => {
     try {
+      let cartContents = [];
       if (user.id) {
-        let cartContents = [];
         const order = await axios.get('/api/cart');
         if (order.data) {
           cartContents = order.data.candles;
         }
-        dispatch(setCartContents(cartContents));
       }
+      dispatch(setCartContents(cartContents));
     } catch (err) {
       console.log('Something is wrong in the getCartContents thunk: ', err);
     }
@@ -103,7 +103,6 @@ export const checkoutCart = (cartContents, user) => {
     }
   };
 };
-
 const initialState = {cartContents: []};
 // Reducer
 export default function cartItemReducer(state = initialState, action) {

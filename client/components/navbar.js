@@ -2,12 +2,22 @@ import React from 'react';
 import {me} from '../store/user';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {logout, getCartContents} from '../store';
+import {logout} from '../store';
 import logo from '../../public/logo.png';
+import {getCartContents} from '../store/cart';
 
 class Navbar extends React.Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
   async componentDidMount() {
     await this.props.loadUser();
+  }
+
+  async handleClick() {
+    await this.props.logout();
+    await this.props.getCartContents({});
   }
 
   render() {
@@ -78,7 +88,7 @@ class Navbar extends React.Component {
             </li>
             {this.props.isLoggedIn ? (
               <li className="nav-item">
-                <a className="nav-link" onClick={this.props.handleClick}>
+                <a className="nav-link" onClick={this.handleClick}>
                   Logout
                 </a>
               </li>
@@ -110,10 +120,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick() {
-      dispatch(logout());
-      dispatch(getCartContents());
-    },
+    getCartContents: (user) => dispatch(getCartContents(user)),
+    logout: () => dispatch(logout()),
     loadUser: () => dispatch(me()),
   };
 };
