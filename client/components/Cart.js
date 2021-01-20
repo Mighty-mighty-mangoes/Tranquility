@@ -12,9 +12,9 @@ export class Cart extends React.Component {
     }
   }
 
-  getTotal() {
+  getTotal(cartContents) {
     return (
-      this.props.cartContents.reduce(
+      cartContents.reduce(
         (total, item) => total + item.price * item.orderItem.quantity,
         0
       ) / 100
@@ -60,7 +60,7 @@ export class Cart extends React.Component {
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-            }).format(this.getTotal().toFixed(2))}
+            }).format(this.getTotal(cartContents).toFixed(2))}
             <button
               type="submit"
               onClick={(event) => this.handleCheckout(event)}
