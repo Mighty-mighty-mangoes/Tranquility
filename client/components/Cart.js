@@ -7,10 +7,10 @@ import {me} from '../store/user';
 export class Cart extends React.Component {
   constructor() {
     super();
-    this.handleClick = this.handleClick.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
+
   async componentDidMount() {
     await this.props.loadUser();
     if (this.props.isLoggedIn) {
