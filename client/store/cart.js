@@ -6,7 +6,7 @@ import axios from 'axios';
 // Action types
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
 const EDIT_CART_ITEM = 'EDIT_CART_ITEM';
-const DELETE_CART_ITEM = 'DELETE_CART_ITEMS';
+const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
 const SET_CART_CONTENTS = 'SET_CART_CONTENTS';
 
 // Action creators
