@@ -6,7 +6,6 @@ import user from './user';
 import candleReducer from './candles';
 import cart from './cart';
 
-
 const reducer = combineReducers({
   cart: cart,
   user: user,
@@ -16,7 +15,6 @@ const reducer = combineReducers({
   spiceCandles: candleReducer,
   flowerCandles: candleReducer,
   coderCandles: candleReducer,
-
 });
 
 const middleware = composeWithDevTools(

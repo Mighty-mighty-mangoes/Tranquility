@@ -28,13 +28,15 @@ export class Cart extends React.Component {
 
   render() {
     const cartContents = this.props.cartContents || [];
+    const guestCart = JSON.parse(localStorage.getItem('cart')) || [];
     return (
       <div className="container">
         <div className="row">
           <div className="col-8 m-3 cartList">
             <h2>Your Cart:</h2>
-            {cartContents.map((cartItem) => {
-              return (
+            {this.props.isLoggedIn
+              ? cartContents.map((cartItem) => {
+                  return (
                 <div key={cartItem.id} className="item-container">
                   <img className="img-thumbnail-view" src={cartItem.imageUrl} />{' '}
                   {cartItem.name}
@@ -48,11 +50,20 @@ export class Cart extends React.Component {
                   <EditCartItem candle={cartItem} />
                 </div>
               );
-            })}
+                })
+              : guestCart.map((item) => {
+                  return (
+                    <div key={item.id} className="row">
+                      <p className="col-6">Item Name: {item.name}</p>
+                      <p className="col-5">Quantity: x</p>
+                      <p>Price: {item.formattedPrice}</p>
+                    </div>
+                  );
+                })}
           </div>
           <div className="col-3 m-3 cartList">
             <h2>Total:</h2>
-            {new Intl.NumberFormat('en-US', {
+            {this.props.isLoggedIn && new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
             }).format(this.getTotal().toFixed(2))}
@@ -65,6 +76,7 @@ export class Cart extends React.Component {
 
 const mapState = (state) => {
   return {
+    isLoggedIn: !!state.user.id,
     cartContents: state.cart.cartContents,
     user: state.user,
     isLoggedIn: !!state.user.id,
