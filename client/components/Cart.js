@@ -5,6 +5,11 @@ import EditCartItem from './EditCartItem';
 import {me} from '../store/user';
 
 export class Cart extends React.Component {
+  constructor() {
+    super();
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
   async componentDidMount() {
     await this.props.loadUser();
     if (this.props.isLoggedIn) {
