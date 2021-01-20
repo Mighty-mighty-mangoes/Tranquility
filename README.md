@@ -6,8 +6,6 @@ Our website is built with/on React, Redux, Express, Sequelize, Node.js, PostgreS
 
 ENGINEERS:
 
----
-
 Grace Ingermanson, Heather Noto, and Katie Weinstein
 
 Deployed At:
