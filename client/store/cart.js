@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable complexity */
 import axios from 'axios';
+import history from '../history';
 
 // Action types
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
@@ -93,11 +94,11 @@ export const checkoutCart = (cartContents, user) => {
         ? await axios.post('/api/cart/checkout')
         : await axios.post('/api/cart/guestCheckout', {cartContents});
       console.log('Order successful');
-      dispatch(setCartContents([]));
+      await dispatch(setCartContents([]));
+      history.push('/confirmation');
     } catch (err) {
       if (err.response.status === 409) {
-        console.log('Insufficient stock');
-        throw err;
+        history.push('/insufficientStock');
       } else {
         console.log('Something is wrong in the checkoutCart thunk: ', err);
       }
