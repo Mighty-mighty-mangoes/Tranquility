@@ -26,13 +26,18 @@ router.post('/', async (req, res, next) => {
         where: {userId: req.user.id, purchased: false},
         include: OrderItem,
       });
-      const matchingItems = order.orderItems.filter(
-        (item) => item.candleId === candleId
-      );
-      if (matchingItems.length) {
-        quantity += matchingItems[0].quantity;
-        await matchingItems[0].update({quantity});
-      } else {
+      let updatedExistingItem = false;
+      if (!created) {
+        const matchingItems = order.orderItems.filter(
+          (item) => item.candleId === candleId
+        );
+        if (matchingItems.length) {
+          quantity += matchingItems[0].quantity;
+          await matchingItems[0].update({quantity});
+          updatedExistingItem = true;
+        }
+      }
+      if (!updatedExistingItem) {
         const orderItem = await order.createOrderItem({
           quantity,
           candleId,
@@ -116,6 +121,35 @@ router.post('/checkout', async (req, res, next) => {
       await order.update({purchased: true});
     }
     res.json(order);
+  } catch (error) {
+    next(error);
+  }
+});
+router.post('/guestCheckout', async (req, res, next) => {
+  try {
+    const {cartContents} = req.body;
+    const candles = await Promise.all(
+      cartContents.map((item) => Candle.findByPk(item.id))
+    );
+    let insufficientStock = false;
+    for (let i = 0; i < cartContents.length; i++) {
+      // Add the orderItem
+      candles[i].orderItem = cartContents[i];
+      if (candles[i].stock < cartContents[i].orderItem.quantity) {
+        insufficientStock = true;
+        break;
+      }
+    }
+    if (insufficientStock) {
+      res.status(409);
+    } else {
+      for (let i = 0; i < candles.length; i++) {
+        await candles[i].update({
+          stock: candles[i].stock - cartContents[i].orderItem.quantity,
+        });
+      }
+    }
+    res.json({cartContents, candles});
   } catch (error) {
     next(error);
   }
