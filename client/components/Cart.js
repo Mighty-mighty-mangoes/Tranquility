@@ -1,40 +1,40 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCartContents, deleteItemFromCart} from '../store/cart';
+import {getCartContents, deleteItemFromCart, checkoutCart} from '../store/cart';
 import EditCartItem from './EditCartItem';
-import {me, checkout} from '../store/user';
+import {me} from '../store/user';
 
 export class Cart extends React.Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   async componentDidMount() {
     await this.props.loadUser();
-    await this.props.loadCartContents(this.props.user);
-  }
-
-  getTotal() {
-    if (this.props.cartContents) {
-      return (
-        this.props.cartContents.reduce(
-          (total, item) => total + item.price * item.orderItem.quantity,
-          0
-        ) / 100
-      );
+    if (this.props.isLoggedIn) {
+      await this.props.loadCartContents(this.props.user);
     }
   }
 
-  async handleClick(event) {
-    event.preventDefault();
-    await this.props.checkout();
+  getTotal(cartContents) {
+    return (
+      cartContents.reduce(
+        (total, item) => total + item.price * item.orderItem.quantity,
+        0
+      ) / 100
+    );
   }
 
   async handleDelete(event, cartItem) {
     event.preventDefault();
-    if (this.props.isLoggedIn) {
-      await this.props.deleteItem(cartItem, this.props.user);
-    }
+    await this.props.deleteItem(cartItem, this.props.user);
+  }
+
+  async handleCheckout(event) {
+    event.preventDefault();
+    await this.props.checkout(this.props.cartContents, this.props.user);
   }
 
   render() {
@@ -71,11 +71,11 @@ export class Cart extends React.Component {
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-            }).format(this.getTotal().toFixed(2))}
+            }).format(this.getTotal(cartContents).toFixed(2))}
             <button
               type="submit"
-              onClick={this.handleClick}
-              className="m-3 btn btn-secondary btn-sm"
+              onClick={(event) => this.handleCheckout(event)}
+              className="btn m-3 btn-secondary btn-sm"
             >
               Checkout
             </button>
@@ -97,7 +97,7 @@ const mapDispatch = (dispatch) => ({
   loadUser: () => dispatch(me()),
   loadCartContents: (user) => dispatch(getCartContents(user)),
   deleteItem: (item, user) => dispatch(deleteItemFromCart(item, user)),
-  checkout: () => dispatch(checkout()),
+  checkout: (cartContents, user) => dispatch(checkoutCart(cartContents, user)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
