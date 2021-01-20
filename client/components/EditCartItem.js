@@ -4,7 +4,7 @@ import {editItemInCart} from '../store/cart';
 
 const getQuantityOptions = (stock, quantity) => {
   const quantityOptions = [];
-  for (let i = 0; i < stock; i++) {
+  for (let i = 0; i <= stock; i++) {
     quantityOptions.push({value: i, message: i});
   }
   if (quantity > stock) {
