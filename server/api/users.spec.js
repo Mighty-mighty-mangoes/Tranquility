@@ -23,11 +23,8 @@ describe('User routes', () => {
       });
     });
 
-    it('GET /api/users', async () => {
-      const res = await request(app).get('/api/users').expect(200);
-
-      expect(res.body).to.be.an('array');
-      expect(res.body[0].email).to.be.equal(codysEmail);
+    it('GET /api/users responds with a 500 for non-admin', async () => {
+      await request(app).get('/api/users').expect(500);
     });
   }); // end describe('/api/users')
 }); // end describe('User routes')
