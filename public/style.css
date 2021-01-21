@@ -92,15 +92,10 @@ h1 {
 .warning {
   color: red;
 }
-/* bootstrap for grid layout */
-/* .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 10px;
-  align-content: flex-start;
-} */
+
+.container.single {
+  color: rgb(70, 79, 85);
+}
 
 .col-sm-3 {
   padding: 20px;

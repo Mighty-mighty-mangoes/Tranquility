@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function AboutUs() {
   return (
-    <div className="page-title">
+    <div className="container single">
       <center>
         <img
           className="featureImage"
