@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {
   Homepage,
   AllCandles,
@@ -22,11 +21,6 @@ import SingleCandle from './components/SingleCandle';
 import {me} from './store';
 
 export default class Routes extends Component {
-  /*componentDidMount() {
-    this.props.loadInitialData()
-  }
-*/
-
   render() {
     return (
       <Switch>
@@ -69,12 +63,4 @@ const mapState = state => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(null, null)(Routes));
-
-/**
- * PROP TYPES
-Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
-*/
+export default withRouter(connect(null, null)(Routes)); **/
