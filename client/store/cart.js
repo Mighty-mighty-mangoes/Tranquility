@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable complexity */
 import axios from 'axios';
+import history from '../history';
 
 // Action types
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
@@ -101,14 +102,15 @@ export const checkoutCart = (cartContents, user) => {
       let response = user.id
         ? await axios.post('/api/cart/checkout')
         : await axios.post('/api/cart/guestCheckout', {cartContents});
-      console.log('Order successful');
-      // empty the cart on success
-      dispatch(setCartContents([]));
+
+  // empty the cart on success
+      await dispatch(setCartContents([]));
+      history.push('/confirmation');
     } catch (err) {
       if (err.response.status === 409) {
-        // Order not completed; redirect to a failure page
+          // Order not completed; redirect to a failure page
         // In this case, stock is not updated in the database
-        console.log('Insufficient stock');
+        history.push('/insufficientStock');
       } else {
         console.log('Something is wrong in the checkoutCart thunk: ', err);
       }

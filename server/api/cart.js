@@ -149,7 +149,7 @@ router.post('/guestCheckout', async (req, res, next) => {
         });
       }
     }
-    res.json({cartContents, candles});
+    res.json({candles});
   } catch (error) {
     next(error);
   }

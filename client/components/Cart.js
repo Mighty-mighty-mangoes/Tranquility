@@ -72,13 +72,17 @@ export class Cart extends React.Component {
               style: 'currency',
               currency: 'USD',
             }).format(this.getTotal(cartContents).toFixed(2))}
-            <button
-              type="submit"
-              onClick={(event) => this.handleCheckout(event)}
-              className="btn m-3 btn-secondary btn-sm"
-            >
-              Checkout
-            </button>
+            {cartContents.length ? (
+              <button
+                type="submit"
+                onClick={(event) => this.handleCheckout(event)}
+                className="btn m-3 btn-secondary btn-sm"
+              >
+                Checkout
+              </button>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>
