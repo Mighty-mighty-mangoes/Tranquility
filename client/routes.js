@@ -12,6 +12,8 @@ import {
   Signup,
   Login,
   Cart,
+  AboutUs,
+  Contact,
   Confirmation,
   InsufficientStock,
 } from './components';
@@ -40,6 +42,8 @@ export default class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Homepage} />
+        <Route exact path="/aboutUs" component={AboutUs} />
+        <Route exact path="/contact" component={Contact} />
       </Switch>
     );
   }

@@ -9,6 +9,8 @@ export {default as Homepage} from './Homepage';
 export {default as Login} from './Login';
 export {default as Signup} from './Signup';
 export {default as Cart} from './Cart';
+export {default as AboutUs} from './AboutUs';
+export {default as Contact} from './Contact';
 export {default as Confirmation} from './Confirmation';
 
 //candle components

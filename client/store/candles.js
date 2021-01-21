@@ -35,7 +35,6 @@ export const setCoderCandles = (candles) => ({
   type: SET_CODER_CANDLES,
   candles,
 });
-
 //ALL CANDLES-works
 export const fetchCandles = () => {
   return async (dispatch) => {

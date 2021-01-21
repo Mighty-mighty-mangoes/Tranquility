@@ -4,6 +4,7 @@ const pkg = require('../../package.json');
 const databaseName =
   pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '');
 
+//below now conditional because needs SSL for deployed but not for local
 let db;
 if (process.env.DATABASE_URL) {
   db = new Sequelize(process.env.DATABASE_URL, {
@@ -28,16 +29,3 @@ module.exports = db;
 if (process.env.NODE_ENV === 'test') {
   after('close database connection', () => db.close());
 }
-
-// const db = new Sequelize(
-
-//   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
-//   {
-//     logging: false,
-//     dialect: 'postgres',
-//     protocol: 'postgres',
-//     dialectOptions: {
-//       ssl: true,
-//     },
-//   }
-// );
