@@ -11,6 +11,7 @@ export {default as Signup} from './Signup';
 export {default as Cart} from './Cart';
 export {default as AboutUs} from './AboutUs';
 export {default as Contact} from './Contact';
+export {default as Confirmation} from './Confirmation';
 
 //candle components
 export {default as AllCandles} from './AllCandles';
@@ -19,3 +20,4 @@ export {default as FoodCandles} from './FoodCandles';
 export {default as SpiceCandles} from './SpiceCandles';
 export {default as FlowerCandles} from './FlowerCandles';
 export {default as CoderCandles} from './CoderCandles';
+export {default as InsufficientStock} from './InsufficientStock';

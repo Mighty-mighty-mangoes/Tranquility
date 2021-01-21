@@ -4,7 +4,7 @@ import {editItemInCart} from '../store/cart';
 
 const getQuantityOptions = (stock, quantity) => {
   const quantityOptions = [];
-  for (let i = 0; i < stock; i++) {
+  for (let i = 0; i <= stock; i++) {
     quantityOptions.push({value: i, message: i});
   }
   if (quantity > stock) {
@@ -36,33 +36,28 @@ export class EditCartItem extends React.Component {
   async handleSubmit(event) {
     console.log('In edit cart, something edited: qty', this.state.quantity);
     event.preventDefault();
-    if (this.props.isLoggedIn) {
-      await this.props.editItem(
-        this.props.candle,
-        this.state.quantity,
-        this.props.user
-      );
-    }
+    await this.props.editItem(
+      this.props.candle,
+      this.state.quantity,
+      this.props.user
+    );
   }
 
   render() {
     return (
-      <div className="btn-group">
-        <form className="btn btn-secondary btn-sm">
+      <div className="col-5 btn-group">
+        <form className="m-2 btn btn-secondary btn-sm">
           <label className="btn btn-secondary btn-sm">
             Quantity
-            <select
-              type="select"
-              className="btn btn-secondary btn-sm dropdown-toggle"
+            <input
+              name="quantity"
+              type="number"
+              min="1"
+              max={this.props.candle.stock}
+              className="form-control"
               value={this.state.quantity}
               onChange={this.handleChange}
-            >
-              {this.quantityOptions.map((item) => (
-                <option value={item.value} key={item.value}>
-                  {item.message}
-                </option>
-              ))}
-            </select>
+            />
           </label>
           <button
             type="submit"

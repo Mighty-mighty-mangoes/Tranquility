@@ -14,6 +14,8 @@ import {
   Cart,
   AboutUs,
   Contact,
+  Confirmation,
+  InsufficientStock,
 } from './components';
 
 import SingleCandle from './components/SingleCandle';
@@ -35,6 +37,8 @@ export default class Routes extends Component {
         <Route exact path="/coderCandles" component={CoderCandles} />
         <Route path="/viewSingleCandle/:candleId" component={SingleCandle} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/confirmation" component={Confirmation} />
+        <Route exact path="/insufficientStock" component={InsufficientStock} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Homepage} />

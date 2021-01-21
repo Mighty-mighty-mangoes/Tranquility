@@ -1,18 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCartContents, deleteItemFromCart} from '../store/cart';
+import {getCartContents, deleteItemFromCart, checkoutCart} from '../store/cart';
 import EditCartItem from './EditCartItem';
 import {me} from '../store/user';
 
 export class Cart extends React.Component {
-  async componentDidMount() {
-    await this.props.loadUser();
-    await this.props.loadCartContents(this.props.user);
+  constructor() {
+    super();
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
-  getTotal() {
+  async componentDidMount() {
+    await this.props.loadUser();
+    if (this.props.isLoggedIn) {
+      await this.props.loadCartContents(this.props.user);
+    }
+  }
+
+  getTotal(cartContents) {
     return (
-      this.props.cartContents.reduce(
+      cartContents.reduce(
         (total, item) => total + item.price * item.orderItem.quantity,
         0
       ) / 100
@@ -21,9 +29,12 @@ export class Cart extends React.Component {
 
   async handleDelete(event, cartItem) {
     event.preventDefault();
-    if (this.props.isLoggedIn) {
-      await this.props.deleteItem(cartItem, this.props.user);
-    }
+    await this.props.deleteItem(cartItem, this.props.user);
+  }
+
+  async handleCheckout(event) {
+    event.preventDefault();
+    await this.props.checkout(this.props.cartContents, this.props.user);
   }
 
   render() {
@@ -35,13 +46,18 @@ export class Cart extends React.Component {
             <h2>Your Cart:</h2>
             {cartContents.map((cartItem) => {
               return (
-                <div key={cartItem.id} className="item-container">
-                  <img className="img-thumbnail-view" src={cartItem.imageUrl} />{' '}
-                  {cartItem.name}
+                <div key={cartItem.id} className="container row">
+                  <div className="col">
+                    <img
+                      className="rounded img-thumbnail-view"
+                      src={cartItem.imageUrl}
+                    />
+                    <p className="text-start">{cartItem.name}</p>
+                  </div>
                   <button
                     type="submit"
                     onClick={(event) => this.handleDelete(event, cartItem)}
-                    className="btn btn-secondary btn-sm"
+                    className="col btn"
                   >
                     Remove
                   </button>
@@ -55,7 +71,18 @@ export class Cart extends React.Component {
             {new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-            }).format(this.getTotal().toFixed(2))}
+            }).format(this.getTotal(cartContents).toFixed(2))}
+            {cartContents.length ? (
+              <button
+                type="submit"
+                onClick={(event) => this.handleCheckout(event)}
+                className="btn m-3 btn-secondary btn-sm"
+              >
+                Checkout
+              </button>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>
@@ -74,6 +101,7 @@ const mapDispatch = (dispatch) => ({
   loadUser: () => dispatch(me()),
   loadCartContents: (user) => dispatch(getCartContents(user)),
   deleteItem: (item, user) => dispatch(deleteItemFromCart(item, user)),
+  checkout: (cartContents, user) => dispatch(checkoutCart(cartContents, user)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
