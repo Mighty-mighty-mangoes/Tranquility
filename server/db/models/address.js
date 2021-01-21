@@ -4,32 +4,31 @@ const db = require('../db');
 const Address = db.define('address', {
   street: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allowNull: false,
     validate: {
-      notEmpty: false,
+      notEmpty: true,
     },
   },
   city: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allowNull: false,
     validate: {
-      notEmpty: false,
+      notEmpty: true,
     },
   },
   state: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allowNull: false,
     validate: {
-      notEmpty: false,
+      notEmpty: true,
     },
   },
   zipCode: {
     type: Sequelize.INTEGER,
-    allowNull: true,
+    allowNull: false,
     validate: {
       min: 10000,
       max: 99999,
-      notEmpty: false,
     },
   },
 });
