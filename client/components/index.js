@@ -18,3 +18,4 @@ export {default as FoodCandles} from './FoodCandles';
 export {default as SpiceCandles} from './SpiceCandles';
 export {default as FlowerCandles} from './FlowerCandles';
 export {default as CoderCandles} from './CoderCandles';
+export {default as InsufficientStock} from './InsufficientStock';

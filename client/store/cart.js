@@ -93,12 +93,12 @@ export const checkoutCart = (cartContents, user) => {
       let response = user.id
         ? await axios.post('/api/cart/checkout')
         : await axios.post('/api/cart/guestCheckout', {cartContents});
-      console.log('Order successful');
+
+      await dispatch(setCartContents([]));
       history.push('/confirmation');
-      dispatch(setCartContents([]));
     } catch (err) {
       if (err.response.status === 409) {
-        console.log('Insufficient stock');
+        history.push('/insufficientStock');
       } else {
         console.log('Something is wrong in the checkoutCart thunk: ', err);
       }
