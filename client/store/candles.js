@@ -136,4 +136,3 @@ export default function candleReducer(state = initialState, action) {
       return state;
   }
 }
-//thought this was needed?  return null
