@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable complexity */
 import axios from 'axios';
+import history from '../history';
 
 // Action types
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
@@ -93,6 +94,7 @@ export const checkoutCart = (cartContents, user) => {
         ? await axios.post('/api/cart/checkout')
         : await axios.post('/api/cart/guestCheckout', {cartContents});
       console.log('Order successful');
+      history.push('/confirmation');
       dispatch(setCartContents([]));
     } catch (err) {
       if (err.response.status === 409) {
