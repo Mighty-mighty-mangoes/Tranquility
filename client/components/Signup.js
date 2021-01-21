@@ -84,7 +84,7 @@ class Signup extends React.Component {
               </label>
               <input
                 name="phone"
-                type="phone"
+                type="text"
                 className="form-control"
                 id="phone"
                 onChange={this.handleChange}
