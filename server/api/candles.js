@@ -1,31 +1,6 @@
 const router = require('express').Router();
 const {Candle} = require('../db/models');
 
-// //trying
-// router.get('/:theme', async (req, res, next) => {
-//   try {
-//     //all candles
-//     const {theme} = req.params;
-//     if (!theme) {
-//       const candles = await Candle.findAll();
-//       res.send(candles);
-//     }
-//     //singleCandle by id
-//     if (typeof theme === 'number') {
-//       const singleCandle = await Candle.findByPk(theme);
-//       res.send(singleCandle);
-//     }
-//     //candles by theme
-//     const candles = await Candle.findAll({
-//       where: {theme: 'food'},
-//     });
-//     res.send(candles);
-//   } catch (err) {
-//     console.log('error in get api/candles');
-//     next(err);
-//   }
-// });
-
 //get all candles -works
 router.get('/', async (req, res, next) => {
   try {
