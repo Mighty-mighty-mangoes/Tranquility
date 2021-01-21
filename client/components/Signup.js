@@ -42,7 +42,6 @@ class Signup extends React.Component {
         <form
           className="container-signup needs-validation"
           onSubmit={this.handleSubmit}
-          noValidate
         >
           <div className="row">
             <div className="col">
@@ -58,6 +57,9 @@ class Signup extends React.Component {
                 value={this.state.firstName}
                 required
               />
+              <div className="invalid-feedback">
+                Please input your first name.
+              </div>
             </div>
             <div className="col">
               <label htmlFor="lastName" className="form-label">
@@ -72,6 +74,9 @@ class Signup extends React.Component {
                 value={this.state.lastName}
                 required
               />
+              <div className="invalid-feedback">
+                Please input your last name.
+              </div>
             </div>
             <div className="col">
               <label htmlFor="phone" className="form-label">
@@ -101,6 +106,7 @@ class Signup extends React.Component {
                 value={this.state.email}
                 required
               />
+              <div className="invalid-feedback">Please input your email.</div>
             </div>
             <div className="col">
               <label htmlFor="password" className="form-label">
@@ -115,6 +121,7 @@ class Signup extends React.Component {
                 value={this.state.password}
                 required
               />
+              <div className="invalid-feedback">Please input a password.</div>
             </div>
           </div>
           <div className="row">
@@ -129,7 +136,6 @@ class Signup extends React.Component {
                 id="street"
                 onChange={this.handleChange}
                 value={this.state.street}
-                required
               />
             </div>
           </div>
@@ -145,7 +151,6 @@ class Signup extends React.Component {
                 id="city"
                 onChange={this.handleChange}
                 value={this.state.city}
-                required
               />
             </div>
             <div className="col">
@@ -159,7 +164,6 @@ class Signup extends React.Component {
                 id="state"
                 onChange={this.handleChange}
                 value={this.state.state}
-                required
               />
             </div>
             <div className="col">
@@ -173,7 +177,6 @@ class Signup extends React.Component {
                 id="zipCode"
                 onChange={this.handleChange}
                 value={this.state.zipCode}
-                required
               />
             </div>
           </div>
@@ -184,13 +187,13 @@ class Signup extends React.Component {
               value="Sign Up"
             ></input>
           </div>
-          <p className="text-center">Or...</p>
-          <div className="row mx-auto">
-            <Link to="/login" className="text-center">
-              Log In Here
-            </Link>
-          </div>
         </form>
+        <p className="text-center">Or...</p>
+        <div className="row mx-auto">
+          <Link to="/login" className="text-center">
+            Log In Here
+          </Link>
+        </div>
       </div>
     );
   }

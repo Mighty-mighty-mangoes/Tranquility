@@ -93,7 +93,7 @@ export const checkoutCart = (cartContents, user) => {
       let response = user.id
         ? await axios.post('/api/cart/checkout')
         : await axios.post('/api/cart/guestCheckout', {cartContents});
-      console.log('Order successful');
+
       await dispatch(setCartContents([]));
       history.push('/confirmation');
     } catch (err) {
