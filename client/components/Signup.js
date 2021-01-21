@@ -136,6 +136,7 @@ class Signup extends React.Component {
                 id="street"
                 onChange={this.handleChange}
                 value={this.state.street}
+                required
               />
             </div>
           </div>
@@ -151,6 +152,7 @@ class Signup extends React.Component {
                 id="city"
                 onChange={this.handleChange}
                 value={this.state.city}
+                required
               />
             </div>
             <div className="col">
@@ -164,6 +166,7 @@ class Signup extends React.Component {
                 id="state"
                 onChange={this.handleChange}
                 value={this.state.state}
+                required
               />
             </div>
             <div className="col">
@@ -177,6 +180,7 @@ class Signup extends React.Component {
                 id="zipCode"
                 onChange={this.handleChange}
                 value={this.state.zipCode}
+                required
               />
             </div>
           </div>
